@@ -23,6 +23,11 @@ namespace Assets.Scripts
         public void SetCaravanMember(ActorBase actor)
         {
             this.actor = actor;
+            if (this.actor == null)
+            {
+                return;
+            }
+
             headerText.text = actor.Name;
             health.text = string.Format(healthFormat, actor.CurrentHealth);
         }

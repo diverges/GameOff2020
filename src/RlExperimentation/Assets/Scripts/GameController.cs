@@ -119,8 +119,9 @@ namespace Assets.Scripts
 
             remainingActions--;
             swapAvailable = false;
-            state.caravan.Remove(target.actor);
 
+            // Pre swap events.
+            state.caravan.Remove(target.actor);
             if (state.activeCaravanMember != null)
             {
                 state.caravan.Add(state.activeCaravanMember);
@@ -132,7 +133,6 @@ namespace Assets.Scripts
             this.activeCaravanMember.SetCaravanMember(target.actor);
             var temp = state.activeCaravanMember;
             state.activeCaravanMember = target.actor;
-            // TODO: cleanup with caravan manager
             this.caravanMemberSpawns.Any(spawn => {
                 var spawnMember = spawn.GetComponent<CaravanMember>();
                 if (spawnMember == target)
@@ -142,14 +142,6 @@ namespace Assets.Scripts
                 }
                 return false;
             });
-
-            Debug.Log($"Active member is now {state.activeCaravanMember.Name}");
-            Debug.Log($"Active member is now {this.activeCaravanMember.actor.Name}");
-            if(target.actor != null)
-            {
-                Debug.Log($"Target member is now {target.actor.Name}");
-            }
-
 
             if (remainingActions == 0)
             {
