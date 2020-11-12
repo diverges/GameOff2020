@@ -8,7 +8,7 @@ namespace Assets.Scripts.CaravanClass
 
         public override int MaxHealth => 16;
 
-        public override BoardState OnEnter(BoardState state)
+        public override BoardState OnEnter(BoardState state, ActorBase previous)
         {
             if (state.enemy == null)
                 return state;
@@ -18,7 +18,7 @@ namespace Assets.Scripts.CaravanClass
             return state;
         }
 
-        public override BoardState OnExit(BoardState state)
+        public override BoardState OnExit(BoardState state, ActorBase next)
         {
             if (state.enemy == null)
                 return state;

@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using UnityEditorInternal;
-using UnityEngine;
 
 namespace Assets.Scripts
 {

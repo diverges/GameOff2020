@@ -9,8 +9,12 @@ namespace Assets.Scripts.CaravanClass
 
         public override int MaxHealth => 20;
 
-        public override BoardState OnEnter(BoardState state)
+        public override BoardState OnEnter(BoardState state, ActorBase previous)
         {
+            if(!state.caravan.Any())
+            {
+                return state;
+            }
             var lowestHealthMember = state.caravan
                 .Aggregate<ActorBase>((lowest, next) => next.CurrentHealth < lowest.CurrentHealth ? lowest: next);
             if (lowestHealthMember != null)
@@ -21,9 +25,13 @@ namespace Assets.Scripts.CaravanClass
             return state;
         }
 
-        public override BoardState OnExit(BoardState state)
+        public override BoardState OnExit(BoardState state, ActorBase next)
         {
-            // TODO: Requires buff
+            if(next != null)
+            {
+                Debug.Log($"Medic healed {next.Name}.");
+                next.CurrentHealth += 2;
+            }
             return state;
         }
 

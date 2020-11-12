@@ -47,9 +47,9 @@ namespace Assets.Scripts
             state = new BoardState()
             {
                 turnState = TurnState.EnemyPrepare,
-                caravan = new List<ActorBase> { new Medic(), new Pistoleer() },
+                caravan = new List<ActorBase> { new Medic(), new Pistoleer(), new Medic(), new Pistoleer() },
                 activeCaravanMember = null,
-                enemyPack = new List<ActorBase> { new Raider(), new Raider()},
+                enemyPack = new List<ActorBase> { new Raider(), new Raider(), new Raider(), new Raider() },
                 enemy = null,
                 deck = deck,
                 hand = new List<CardBase>()
@@ -86,11 +86,16 @@ namespace Assets.Scripts
             if(state.turnState != TurnState.End)
             {
                 combatText.text = state.turnState.ToString();
+                combatText.text += $"\r\nEnemies Remaining {state.enemyPack.Count()+1}";
                 combatText.text += $"\r\nActions {remainingActions}";
+                if(swapAvailable)
+                {
+                    combatText.text += $"\r\nCan Swap!";
+                }
             }
             else
             {
-                combatText.text = "Victory!";
+                combatText.text = (state.activeCaravanMember != null || state.caravan.Any()) ? "Victory!" : "Defeat!";
             }
         }
 
@@ -125,9 +130,9 @@ namespace Assets.Scripts
             if (state.activeCaravanMember != null)
             {
                 state.caravan.Add(state.activeCaravanMember);
-                state.activeCaravanMember.OnExit(state);
+                state.activeCaravanMember.OnExit(state, target.actor);
             }
-            target.actor.OnEnter(state);
+            target.actor.OnEnter(state, state.activeCaravanMember);
 
             // Perform Swap
             this.activeCaravanMember.SetCaravanMember(target.actor);
@@ -198,6 +203,25 @@ namespace Assets.Scripts
             }
         }
 
+        private void CleanupCaravan()
+        {
+            for (var index = 0; index < caravanMemberSpawns.Count; ++index)
+            {
+                var member = caravanMemberSpawns[index].GetComponent<CaravanMember>();
+                if (member.actor != null && member.actor.CurrentHealth <= 0)
+                {
+                    member.SetCaravanMember(null);
+                    caravanMemberSpawns[index].SetActive(false);
+                    return;
+                }
+            }
+            if(state.activeCaravanMember != null && state.activeCaravanMember.CurrentHealth <= 0)
+            {
+                activeCaravanMember.SetCaravanMember(null);
+                state.activeCaravanMember = null;
+            }
+        }
+
         private void ProcessTurnPhase()
         {
             switch (state.turnState)
@@ -208,7 +232,7 @@ namespace Assets.Scripts
                         state.enemy = state.enemyPack.First();
                         enemySpawn.actor = state.enemy;
                         state.enemyPack.RemoveAt(0);
-                        state.enemy.OnEnter(state);
+                        state.enemy.OnEnter(state, null);
                         state.turnState = TurnState.PlayerDraw;
                     }
                     else
@@ -219,6 +243,7 @@ namespace Assets.Scripts
                 case TurnState.EnemyAct:
                     state.enemy.OnPrepare(state);
                     state.turnState = TurnState.PlayerDraw;
+                    CleanupCaravan();
                     break;
                 case TurnState.PlayerDraw:
                     remainingActions = MaxActionsPerTurn;
@@ -231,17 +256,18 @@ namespace Assets.Scripts
                     {
                         state.activeCaravanMember.OnPrepare(state);
                     }
-                    state.turnState = TurnState.PlayerAct;
+                    state.turnState = (state.activeCaravanMember != null || state.caravan.Any()) ? TurnState.PlayerAct : TurnState.End;
                     break;
                 case TurnState.PlayerAct:
                     break;
                 case TurnState.PlayerEnd:
+                    CleanupCaravan();
                     DiscardPlayerHand();
                     if(state.enemy.CurrentHealth <= 0)
                     {
                         state.enemy = null;
                     }
-                    state.turnState =  TurnState.EnemyPrepare;
+                    state.turnState = TurnState.EnemyPrepare;
                     break;
                 case TurnState.End:
                     break;

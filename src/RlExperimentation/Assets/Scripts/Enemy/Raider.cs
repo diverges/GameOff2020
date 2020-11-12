@@ -10,7 +10,7 @@ namespace Assets.Scripts.Enemy
 
         private bool takeAimBuf = false;
 
-        public override BoardState OnEnter(BoardState state)
+        public override BoardState OnEnter(BoardState state, ActorBase previous)
         {
             var target = state.GetFirstAvailablePlayerTarget();
             target.CurrentHealth -= 3;
@@ -21,21 +21,21 @@ namespace Assets.Scripts.Enemy
         public override BoardState OnPrepare(BoardState state)
         {
             var target = state.GetFirstAvailablePlayerTarget();
-            var baseDamage = (takeAimBuf) ? 3 : 0;
+            var baseDamage = (takeAimBuf) ? 4 : 0;
             takeAimBuf = false;
 
             if (Random.Range(0, 10) >= 5 )
             {
                 // Take Aim
                 Debug.Log("Raider is taking aim!");
-                target.CurrentHealth -= (baseDamage + 2);
+                target.CurrentHealth -= (baseDamage + 3);
                 takeAimBuf = true;
             }
             else
             {
                 // Open Fire!
                 Debug.Log("Raider fired!");
-                target.CurrentHealth -= (baseDamage + 3);
+                target.CurrentHealth -= (baseDamage + 7);
             }
             return state;
         }

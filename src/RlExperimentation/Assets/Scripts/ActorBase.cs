@@ -13,12 +13,12 @@
 
         public int CurrentHealth;
 
-        public virtual BoardState OnEnter(BoardState state)
+        public virtual BoardState OnEnter(BoardState state, ActorBase previous)
         {
             return state;
         }
 
-        public virtual BoardState OnExit(BoardState state)
+        public virtual BoardState OnExit(BoardState state, ActorBase next)
         {
             return state;
         }

@@ -5,7 +5,7 @@ namespace Assets.Scripts
 {
     public class CaravanMember : MonoBehaviour
     {
-        private const string healthFormat = "HP: {0}";
+        private const string healthFormat = "HP: {0}/{1}";
         [HideInInspector] public ActorBase actor;
         public Text headerText;
         public Text health;
@@ -17,7 +17,7 @@ namespace Assets.Scripts
                 return;
             }
 
-            health.text = string.Format(healthFormat, actor.CurrentHealth);
+            health.text = string.Format(healthFormat, actor.CurrentHealth, actor.MaxHealth);
         }
 
         public void SetCaravanMember(ActorBase actor)
@@ -29,7 +29,7 @@ namespace Assets.Scripts
             }
 
             headerText.text = actor.Name;
-            health.text = string.Format(healthFormat, actor.CurrentHealth);
+            health.text = string.Format(healthFormat, actor.CurrentHealth, actor.MaxHealth);
         }
     }
 }
