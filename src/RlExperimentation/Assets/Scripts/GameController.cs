@@ -49,7 +49,7 @@ namespace Assets.Scripts
                 turnState = TurnState.EnemyPrepare,
                 caravan = new List<ActorBase> { new Medic(), new Pistoleer(), new Medic(), new Pistoleer() },
                 activeCaravanMember = null,
-                enemyPack = new List<ActorBase> { new Raider(), new Raider(), new Raider(), new Raider() },
+                enemyPack = new List<EnemyBase> { new Raider(), new Raider(), new Raider(), new Raider() },
                 enemy = null,
                 deck = deck,
                 hand = new List<CardBase>()

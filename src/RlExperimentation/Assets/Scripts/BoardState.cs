@@ -24,8 +24,8 @@ namespace Assets.Scripts
         public ActorBase activeCaravanMember;
 
 
-        public List<ActorBase> enemyPack;
-        public ActorBase enemy;
+        public List<EnemyBase> enemyPack;
+        public EnemyBase enemy;
 
         public Deck deck;
         public List<CardBase> hand;
