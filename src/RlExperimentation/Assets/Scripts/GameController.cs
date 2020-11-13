@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.CaravanClass;
 using Assets.Scripts.Cards;
+using Assets.Scripts.Core;
 using Assets.Scripts.Enemy;
 using System;
 using System.Collections.Generic;
@@ -22,11 +23,13 @@ namespace Assets.Scripts
         public Text deckText;
         public Text discardText;
 
-        public List<GameObject> caravanMemberSpawns;
+        public CaravanManager caravanManager;
+        public HandManager handManager;
+        public EnemyManager enemyManager;
+
         public EnemyView enemySpawn;
         public GameObject handSpawn;
         public GameObject cardPrefab;
-        public CaravanMember activeCaravanMember;
 
         private BoardState state;
         private int remainingActions = 0;
@@ -47,8 +50,6 @@ namespace Assets.Scripts
             state = new BoardState()
             {
                 turnState = TurnState.EnemyPrepare,
-                caravan = new List<ActorBase> { new Medic(), new Pistoleer(), new Medic(), new Pistoleer() },
-                activeCaravanMember = null,
                 enemyPack = new List<EnemyBase> { new Raider(), new Raider(), new Raider(), new Raider() },
                 enemy = null,
                 deck = deck,
@@ -58,20 +59,10 @@ namespace Assets.Scripts
 
         public void Start()
         {
-            // Create Caravan
-            for(var index = 0; index < caravanMemberSpawns.Count; ++index)
-            {
-                if(index >= state.caravan.Count)
-                {
-                    caravanMemberSpawns[index].SetActive(false);
-                    return;
-                }
-                var spawnObjectData = caravanMemberSpawns[index].GetComponent<CaravanMember>();
-                spawnObjectData.SetCaravanMember(state.caravan[index]);
-                caravanMemberSpawns[index].SetActive(true);
-            }
+            caravanManager.InitializeCaravan(new List<ActorBase> { new Medic(), new Pistoleer(), new Medic(), new Pistoleer() });
 
             state.deck.Shuffle();
+
 
             do
             {
@@ -95,7 +86,7 @@ namespace Assets.Scripts
             }
             else
             {
-                combatText.text = (state.activeCaravanMember != null || state.caravan.Any()) ? "Victory!" : "Defeat!";
+                combatText.text = (caravanManager.HasRemainingMembers()) ? "Victory!" : "Defeat!";
             }
         }
 
@@ -125,28 +116,9 @@ namespace Assets.Scripts
             remainingActions--;
             swapAvailable = false;
 
-            // Pre swap events.
-            state.caravan.Remove(target.actor);
-            if (state.activeCaravanMember != null)
-            {
-                state.caravan.Add(state.activeCaravanMember);
-                state.activeCaravanMember.OnExit(state, target.actor);
-            }
-            target.actor.OnEnter(state, state.activeCaravanMember);
-
-            // Perform Swap
-            this.activeCaravanMember.SetCaravanMember(target.actor);
-            var temp = state.activeCaravanMember;
-            state.activeCaravanMember = target.actor;
-            this.caravanMemberSpawns.Any(spawn => {
-                var spawnMember = spawn.GetComponent<CaravanMember>();
-                if (spawnMember == target)
-                {
-                    spawnMember.SetCaravanMember(temp);
-                    return true;
-                }
-                return false;
-            });
+            var (prev, cur) = caravanManager.SetActiveMember(target);
+            prev.OnExit(state, cur);
+            cur.OnEnter(state, prev);
 
             if (remainingActions == 0)
             {
@@ -203,25 +175,6 @@ namespace Assets.Scripts
             }
         }
 
-        private void CleanupCaravan()
-        {
-            for (var index = 0; index < caravanMemberSpawns.Count; ++index)
-            {
-                var member = caravanMemberSpawns[index].GetComponent<CaravanMember>();
-                if (member.actor != null && member.actor.CurrentHealth <= 0)
-                {
-                    member.SetCaravanMember(null);
-                    caravanMemberSpawns[index].SetActive(false);
-                    return;
-                }
-            }
-            if(state.activeCaravanMember != null && state.activeCaravanMember.CurrentHealth <= 0)
-            {
-                activeCaravanMember.SetCaravanMember(null);
-                state.activeCaravanMember = null;
-            }
-        }
-
         private void ProcessTurnPhase()
         {
             switch (state.turnState)
@@ -243,7 +196,7 @@ namespace Assets.Scripts
                 case TurnState.EnemyAct:
                     state.enemy.OnPrepare(state);
                     state.turnState = TurnState.PlayerDraw;
-                    CleanupCaravan();
+                    caravanManager.CleanupCaravan();
                     break;
                 case TurnState.PlayerDraw:
                     remainingActions = MaxActionsPerTurn;
@@ -252,16 +205,13 @@ namespace Assets.Scripts
                     state.turnState = TurnState.PlayerPrepare;
                     break;
                 case TurnState.PlayerPrepare:
-                    if(state.activeCaravanMember != null)
-                    {
-                        state.activeCaravanMember.OnPrepare(state);
-                    }
-                    state.turnState = (state.activeCaravanMember != null || state.caravan.Any()) ? TurnState.PlayerAct : TurnState.End;
+                    caravanManager.OnPrepare(state);
+                    state.turnState = (caravanManager.HasRemainingMembers()) ? TurnState.PlayerAct : TurnState.End;
                     break;
                 case TurnState.PlayerAct:
                     break;
                 case TurnState.PlayerEnd:
-                    CleanupCaravan();
+                    caravanManager.CleanupCaravan();
                     DiscardPlayerHand();
                     if(state.enemy.CurrentHealth <= 0)
                     {

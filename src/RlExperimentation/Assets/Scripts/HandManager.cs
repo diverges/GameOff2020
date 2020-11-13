@@ -1,16 +1,14 @@
-﻿using Assets.Scripts;
-using System;
+﻿using Assets.Scripts.Core;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace Assets.Scripts
 {
-    public class Hand : MonoBehaviour
+    public class HandManager : MonoBehaviour
     {
+        public Deck deck;
+        public List<CardBase> hand;
+
         public void OnHandChange(List<CardBase> newHand)
         {
         }

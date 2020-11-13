@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using Assets.Scripts.Core;
+using System.Linq;
 using UnityEngine;
 
 namespace Assets.Scripts.CaravanClass
@@ -11,17 +12,17 @@ namespace Assets.Scripts.CaravanClass
 
         public override BoardState OnEnter(BoardState state, ActorBase previous)
         {
-            if(!state.caravan.Any())
-            {
-                return state;
-            }
-            var lowestHealthMember = state.caravan
-                .Aggregate<ActorBase>((lowest, next) => next.CurrentHealth < lowest.CurrentHealth ? lowest: next);
-            if (lowestHealthMember != null)
-            {
-                Debug.Log($"Medic healed {lowestHealthMember.Name}");
-                lowestHealthMember.CurrentHealth += 2;
-            }
+            //if(!state.caravan.Any())
+            //{
+            //    return state;
+            //}
+            //var lowestHealthMember = state.caravan
+            //    .Aggregate<ActorBase>((lowest, next) => next.CurrentHealth < lowest.CurrentHealth ? lowest: next);
+            //if (lowestHealthMember != null)
+            //{
+            //    Debug.Log($"Medic healed {lowestHealthMember.Name}");
+            //    lowestHealthMember.CurrentHealth += 2;
+            //}
             return state;
         }
 
@@ -37,14 +38,14 @@ namespace Assets.Scripts.CaravanClass
 
         public override BoardState OnPrepare(BoardState state)
         {
-            foreach(var member in state.caravan)
-            {
-                if (member.CurrentHealth < member.MaxHealth)
-                {
-                    Debug.Log($"Medic healed {member.Name}");
-                    member.CurrentHealth++;
-                }
-            }
+            //foreach(var member in state.caravan)
+            //{
+            //    if (member.CurrentHealth < member.MaxHealth)
+            //    {
+            //        Debug.Log($"Medic healed {member.Name}");
+            //        member.CurrentHealth++;
+            //    }
+            //}
 
             return state;
         }

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Core;
+using UnityEngine;
 
 namespace Assets.Scripts.Enemy
 {
@@ -25,31 +26,31 @@ namespace Assets.Scripts.Enemy
 
         public override BoardState OnEnter(BoardState state, ActorBase previous)
         {
-            var target = state.GetFirstAvailablePlayerTarget();
-            target.CurrentHealth -= 3;
-            Debug.Log($"Raider deals damage 3 damage to {target.Name}.");
+            //var target = state.GetFirstAvailablePlayerTarget();
+            //target.CurrentHealth -= 3;
+            //Debug.Log($"Raider deals damage 3 damage to {target.Name}.");
             return state;
         }
 
         public override BoardState OnPrepare(BoardState state)
         {
-            var target = state.GetFirstAvailablePlayerTarget();
-            var baseDamage = (takeAimBuf) ? 4 : 0;
-            takeAimBuf = false;
+            //var target = state.GetFirstAvailablePlayerTarget();
+            //var baseDamage = (takeAimBuf) ? 4 : 0;
+            //takeAimBuf = false;
 
-            if (intent >= 5 )
-            {
-                // Take Aim
-                Debug.Log("Raider is taking aim!");
-                target.CurrentHealth -= (baseDamage + 3);
-                takeAimBuf = true;
-            }
-            else
-            {
-                // Open Fire!
-                Debug.Log("Raider fired!");
-                target.CurrentHealth -= (baseDamage + 7);
-            }
+            //if (intent >= 5 )
+            //{
+            //    // Take Aim
+            //    Debug.Log("Raider is taking aim!");
+            //    target.CurrentHealth -= (baseDamage + 3);
+            //    takeAimBuf = true;
+            //}
+            //else
+            //{
+            //    // Open Fire!
+            //    Debug.Log("Raider fired!");
+            //    target.CurrentHealth -= (baseDamage + 7);
+            //}
             intent = Random.Range(0, 10);
             return state;
         }

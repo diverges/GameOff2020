@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Assets.Scripts.Core;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Assets.Scripts
@@ -20,24 +21,10 @@ namespace Assets.Scripts
     {
         public TurnState turnState;
 
-        public List<ActorBase> caravan;
-        public ActorBase activeCaravanMember;
-
-
         public List<EnemyBase> enemyPack;
         public EnemyBase enemy;
 
         public Deck deck;
         public List<CardBase> hand;
-
-        public ActorBase GetFirstAvailablePlayerTarget()
-        {
-            if(activeCaravanMember != null)
-            {
-                return activeCaravanMember;
-            }
-
-            return caravan.Where(member => member.CurrentHealth > 0).First();
-        }
     }
 }

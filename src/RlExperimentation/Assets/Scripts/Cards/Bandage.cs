@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Assets.Scripts.Core;
+
 
 namespace Assets.Scripts.Cards
 {
@@ -14,14 +12,14 @@ namespace Assets.Scripts.Cards
 
         public override BoardState OnPlay(BoardState state)
         {
-            if(state.activeCaravanMember != null)
-            {
-                state.activeCaravanMember.CurrentHealth = Math.Min(state.activeCaravanMember.CurrentHealth+2, state.activeCaravanMember.MaxHealth);
-                if (state.activeCaravanMember.Name == "Medic")
-                {
-                    state.caravan.ForEach(member => member.CurrentHealth = Math.Min(member.CurrentHealth + 2, member.MaxHealth));
-                }
-            }
+            //if(state.activeCaravanMember != null)
+            //{
+            //    state.activeCaravanMember.CurrentHealth = Math.Min(state.activeCaravanMember.CurrentHealth+2, state.activeCaravanMember.MaxHealth);
+            //    if (state.activeCaravanMember.Name == "Medic")
+            //    {
+            //        state.caravan.ForEach(member => member.CurrentHealth = Math.Min(member.CurrentHealth + 2, member.MaxHealth));
+            //    }
+            //}
             return state;
         }
     }

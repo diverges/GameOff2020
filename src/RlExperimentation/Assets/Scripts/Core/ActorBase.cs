@@ -1,7 +1,11 @@
-﻿namespace Assets.Scripts
+﻿using System;
+
+namespace Assets.Scripts.Core
 {
     public abstract class ActorBase
     {
+        private int currentHealth;
+
         public ActorBase()
         {
             CurrentHealth = MaxHealth;
@@ -11,7 +15,11 @@
 
         public abstract int MaxHealth { get; }
 
-        public int CurrentHealth;
+        public int CurrentHealth
+        {
+            get => currentHealth;
+            set => currentHealth = Math.Min(value, MaxHealth);
+        }
 
         public virtual BoardState OnEnter(BoardState state, ActorBase previous)
         {

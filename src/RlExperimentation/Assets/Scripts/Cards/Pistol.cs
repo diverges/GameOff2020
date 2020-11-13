@@ -1,4 +1,6 @@
-﻿namespace Assets.Scripts.Cards
+﻿using Assets.Scripts.Core;
+
+namespace Assets.Scripts.Cards
 {
     public class Pistol : CardBase
     {
@@ -8,14 +10,14 @@
 
         public override BoardState OnPlay(BoardState state)
         {
-            if(state.enemy != null)
-            {
-                state.enemy.CurrentHealth -= 3;
-                if (state.activeCaravanMember != null && state.activeCaravanMember.Name == "Pistoleer")
-                {
-                    state.enemy.CurrentHealth -= 2;
-                }
-            }
+            //if(state.enemy != null)
+            //{
+            //    state.enemy.CurrentHealth -= 3;
+            //    if (state.activeCaravanMember != null && state.activeCaravanMember.Name == "Pistoleer")
+            //    {
+            //        state.enemy.CurrentHealth -= 2;
+            //    }
+            //}
             return state;
         }
     }
