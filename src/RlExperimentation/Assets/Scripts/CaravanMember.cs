@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Core;
+using Assets.Scripts.ScriptableObjects;
 using UnityEngine;
 using UnityEngine.UI;
 

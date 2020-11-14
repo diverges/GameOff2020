@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Core;
+using Assets.Scripts.ScriptableObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -97,7 +98,7 @@ namespace Assets.Scripts
             }
         }
 
-        public void OnPrepare(BoardState state) => activeCaravanActor?.OnPrepare(state);
+        //public void OnPrepare(BoardState state) => activeCaravanActor.OnPrepare(state);
 
         public ActorBase GetFirstAvailablePlayerTarget()
         {

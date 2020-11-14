@@ -259,6 +259,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 430821552}
+  - component: {fileID: 430821553}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -281,6 +282,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &430821553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 430821551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7798fc1ab71697346bf66dd3f077297c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemySpawn: {fileID: 547403129}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -468,6 +482,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 877060157}
+  - component: {fileID: 877060158}
   m_Layer: 0
   m_Name: Hand
   m_TagString: Untagged
@@ -491,6 +506,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &877060158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 877060156}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dde8311fca6de14eb5aebf14ffed8d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deckDisplay: {fileID: 1140827659}
+  discardDisplay: {fileID: 1925211064}
+  handSpawn: {fileID: 1221338617}
+  cardPrefab: {fileID: 7470609874958856824, guid: d801cdb8f5dc86f4288e38bbd2b46975, type: 3}
 --- !u!1 &913720694 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 913952482787207389, guid: 2e7038ca0b36953419a893be1af728f1, type: 3}
@@ -987,7 +1018,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1221338618}
-  - component: {fileID: 1221338619}
   m_Layer: 0
   m_Name: HandSpawn
   m_TagString: Untagged
@@ -1009,18 +1039,6 @@ Transform:
   m_Father: {fileID: 877060157}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1221338619
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1221338617}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7dde8311fca6de14eb5aebf14ffed8d2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1329152081
 GameObject:
   m_ObjectHideFlags: 0
@@ -1206,29 +1224,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   combatText: {fileID: 1206143374}
-  deckText: {fileID: 916721865}
-  discardText: {fileID: 954257688}
   caravanManager: {fileID: 1329152082}
-  handManager: {fileID: 0}
-  enemyManager: {fileID: 0}
-  enemySpawn: {fileID: 547403129}
-  handSpawn: {fileID: 1221338617}
-  cardPrefab: {fileID: 7470609874958856824, guid: d801cdb8f5dc86f4288e38bbd2b46975, type: 3}
-  onPlayerHandChange:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1221338619}
-        m_TargetAssemblyTypeName: Assets.Scripts.Hand, Assembly-CSharp
-        m_MethodName: OnHandChange
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  handManager: {fileID: 877060158}
+  enemyManager: {fileID: 430821553}
 --- !u!4 &1585183918
 Transform:
   m_ObjectHideFlags: 0
