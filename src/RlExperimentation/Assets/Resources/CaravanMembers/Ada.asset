@@ -13,6 +13,14 @@ MonoBehaviour:
   m_Name: Ada
   m_EditorClassIdentifier: 
   Name: Ada
+  Description: 'Lorem ipsum dolor sit amet,
+
+    consectetur adipiscing elit,
+
+    sed
+    do eiusmod tempor incididunt
+
+    ut labore et dolore magna aliqua.'
   Class: 1
   MaxHealth: 20
   Backpack:

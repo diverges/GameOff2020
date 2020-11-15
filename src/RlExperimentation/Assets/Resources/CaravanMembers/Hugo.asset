@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: Hugo
   m_EditorClassIdentifier: 
   Name: Hugo
+  Description: 'Lorem ipsum dolor sit amet,
+
+    consectetur adipiscing elit.'
   Class: 2
   MaxHealth: 16
   Backpack:

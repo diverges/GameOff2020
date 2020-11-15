@@ -19,6 +19,13 @@ namespace Assets.Scripts
 
         public void Update()
         {
+            if (tooltipInstance != null)
+            {
+                var worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                worldPosition.z = 0;
+                tooltipInstance.transform.position = worldPosition;
+            }
+
             if (this.actor == null)
             {
                 return;

@@ -23,6 +23,9 @@ namespace Assets.Scripts.ScriptableObjects
 
         public string Name;
 
+        [TextArea]
+        public string Description;
+
         public CaravanClass Class;
 
         public int MaxHealth;
@@ -52,9 +55,10 @@ namespace Assets.Scripts.ScriptableObjects
 
         public List<Tuple<string, string>> GetTooltipDescription()
         {
+            var name = (CaravanClass.None == this.Class) ? this.Name : $"{this.Name}, <i>{this.Class.ToString()}</i>";
             var result = new List<Tuple<string, string>>()
             {
-                new Tuple<string, string>(this.Name, this.Class.ToString())
+                new Tuple<string, string>(name, this.Description)
             };
 
             if(OnEnter.Any())
