@@ -1,18 +1,24 @@
 ﻿using Assets.Scripts.Core;
 using Assets.Scripts.ScriptableObjects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace Assets.Scripts
 {
+    [Serializable]
+    public class CardPlayEvent : UnityEvent<CardBase> {}
+
     public class HandManager : MonoBehaviour
     {
         public Text deckDisplay;
         public Text discardDisplay;
         public GameObject handSpawn;
         public GameObject cardPrefab;
+        public CardPlayEvent onCardPlay;
 
         private Deck deck;
         private List<CardBase> hand;
@@ -40,6 +46,7 @@ namespace Assets.Scripts
                 {
                     var instance = Instantiate(cardPrefab, cardPosition, Quaternion.identity);
                     var view = instance.GetComponent<CardView>();
+                    view.controller = this;
                     card.instance = instance;
                     view.SetCardBase(card);
                     hand.Add(card);

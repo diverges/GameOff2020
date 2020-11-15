@@ -1,13 +1,20 @@
 ﻿using Assets.Scripts.Core;
+using Assets.Scripts.ScriptableObjects;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.Enemy
 {
     public class Raider : EnemyBase
     {
-        public override string Name => "Raider";
+        private bool takeAimBuf = false;
+        private int intent = Random.Range(0, 10);
 
-        public override int MaxHealth => 13;
+        public override List<Effect> Intent => new List<Effect>();
+
+        public override string IntentName => "TakeAim!";
+
+        public override string ActorName => "Raider";
 
         //public override string Intent {
         //    get {
@@ -19,40 +26,6 @@ namespace Assets.Scripts.Enemy
         //        }
         //        return $"<b>Fire!</b>\r\nDeal <b>{baseDamage+7}</b> damage.";
         //    }
-        //}
-
-        private bool takeAimBuf = false;
-        private int intent = Random.Range(0, 10);
-
-        //public override BoardState OnEnter(BoardState state, ActorBase previous)
-        //{
-        //    //var target = state.GetFirstAvailablePlayerTarget();
-        //    //target.CurrentHealth -= 3;
-        //    //Debug.Log($"Raider deals damage 3 damage to {target.Name}.");
-        //    return state;
-        //}
-
-        //public override BoardState OnPrepare(BoardState state)
-        //{
-        //    //var target = state.GetFirstAvailablePlayerTarget();
-        //    //var baseDamage = (takeAimBuf) ? 4 : 0;
-        //    //takeAimBuf = false;
-
-        //    //if (intent >= 5 )
-        //    //{
-        //    //    // Take Aim
-        //    //    Debug.Log("Raider is taking aim!");
-        //    //    target.CurrentHealth -= (baseDamage + 3);
-        //    //    takeAimBuf = true;
-        //    //}
-        //    //else
-        //    //{
-        //    //    // Open Fire!
-        //    //    Debug.Log("Raider fired!");
-        //    //    target.CurrentHealth -= (baseDamage + 7);
-        //    //}
-        //    intent = Random.Range(0, 10);
-        //    return state;
         //}
     }
 }

@@ -522,6 +522,21 @@ MonoBehaviour:
   discardDisplay: {fileID: 1925211064}
   handSpawn: {fileID: 1221338617}
   cardPrefab: {fileID: 7470609874958856824, guid: d801cdb8f5dc86f4288e38bbd2b46975, type: 3}
+  onCardPlay:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1585183917}
+        m_TargetAssemblyTypeName: Assets.Scripts.GameController, Assembly-CSharp
+        m_MethodName: PlayCard
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &913720694 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 913952482787207389, guid: 2e7038ca0b36953419a893be1af728f1, type: 3}
@@ -1068,6 +1083,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d518b3f3ef11034680dcaf93bb5a1a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  caravan: []
+  activeCaravanActor: {fileID: 0}
   orderedCaravanSpawns:
   - {fileID: 2082636861}
   - {fileID: 2143519345}
@@ -1224,6 +1241,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   combatText: {fileID: 1206143374}
+  startingCaravan:
+  - {fileID: 11400000, guid: f05caa05c6aa8904f95492e137dd6484, type: 2}
+  - {fileID: 11400000, guid: 87d0df949ae06324fa7fa14f3d45a126, type: 2}
+  - {fileID: 11400000, guid: f05caa05c6aa8904f95492e137dd6484, type: 2}
+  - {fileID: 11400000, guid: 87d0df949ae06324fa7fa14f3d45a126, type: 2}
   caravanManager: {fileID: 1329152082}
   handManager: {fileID: 877060158}
   enemyManager: {fileID: 430821553}

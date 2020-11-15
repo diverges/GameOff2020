@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Core;
+using Assets.Scripts.ScriptableObjects;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -32,12 +33,12 @@ namespace Assets.Scripts
             return (enemy != null) ? 1 + packSize : packSize;
         }
 
-        public bool IsActiveEnemyAlive() => enemy != null && enemy.CurrentHealth <= 0;
+        public bool IsActiveEnemyAlive() => enemy != null && enemy.Instance.CurrentHealth > 0;
 
         public bool TrySpawnNextEnemy(out EnemyBase result)
         {
             result = null;
-            if (enemy == null && enemyPack.Any())
+            if (enemyPack.Any())
             {
                 enemy = enemyPack.First();
                 enemySpawn.actor = enemy;

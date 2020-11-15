@@ -16,9 +16,9 @@ namespace Assets.Scripts
         {
             if(actor != null)
             {
-                Name.text = actor.Name;
-                Health.text = $"HP: {Math.Max(actor.CurrentHealth, 0)}";
-                //Intent.text = actor.Intent;
+                Name.text = actor.Instance.Name;
+                Health.text = $"HP: {Math.Max(actor.Instance.CurrentHealth, 0)}";
+                Intent.text = actor.IntentName;
             }
         }
     }

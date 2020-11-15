@@ -13,19 +13,27 @@ namespace Assets.Scripts.ScriptableObjects
     {
         private int currentHealth;
 
+        public ActorBase()
+        {
+            currentHealth = MaxHealth;
+        }
+
         public void OnEnable()
         {
-            CurrentHealth = MaxHealth;
+            currentHealth = MaxHealth;
         }
 
         public string Name;
 
+        public CaravanClass Class;
+
         public int MaxHealth;
+
+        public List<CardBase> Backpack;
 
         public int CurrentHealth
         {
             get => currentHealth;
-            set => currentHealth = Math.Min(value, MaxHealth);
         }
 
         public List<Effect> OnEnter;
@@ -33,5 +41,15 @@ namespace Assets.Scripts.ScriptableObjects
         public List<Effect> OnExit;
 
         public List<Effect> OnPrepare;
+
+        public void Heal(int amount)
+        {
+            this.currentHealth = Math.Min(this.currentHealth + amount, MaxHealth);
+        }
+
+        public void Damage(int amount)
+        {
+            this.currentHealth = Math.Max(this.currentHealth - amount, 0);
+        }
     }
 }

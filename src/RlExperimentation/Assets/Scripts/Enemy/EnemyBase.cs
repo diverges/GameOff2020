@@ -1,34 +1,26 @@
 ﻿using Assets.Scripts.ScriptableObjects;
-using System;
+using System.Linq;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Assets.Scripts.Core
 {
     public abstract class EnemyBase
     {
-        private int currentHealth;
+        private static Dictionary<string, ActorBase> actors = Resources.LoadAll<ActorBase>("Enemies").ToDictionary(item => item.Name, item => item);
+        private ActorBase instance;
 
         public EnemyBase()
         {
-            CurrentHealth = MaxHealth;
+            this.instance = Object.Instantiate(EnemyBase.actors[ActorName]);
         }
 
-        public abstract string Name { get; }
+        public ActorBase Instance { get => instance; }
 
-        public abstract int MaxHealth { get; }
+        public abstract string ActorName { get; }
 
-        public int CurrentHealth
-        {
-            get => currentHealth;
-            set => currentHealth = Math.Min(value, MaxHealth);
-        }
+        public abstract string IntentName { get; }
 
-        public List<Effect> OnEnter;
-
-        public List<Effect> OnExit;
-
-        public List<Effect> OnPrepare;
-
-        public List<Effect> Intent { get; }
+        public abstract List<Effect> Intent { get; }
     }
 }

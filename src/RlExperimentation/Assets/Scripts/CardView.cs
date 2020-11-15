@@ -9,7 +9,7 @@ using UnityEngine.UIElements;
 public class CardView : MonoBehaviour
 {
     [HideInInspector] public CardBase card;
-    //[HideInInspector] public GameController controller;
+    [HideInInspector] public HandManager controller;
     public Text headerText;
     public Text descriptionText;
 
@@ -28,6 +28,6 @@ public class CardView : MonoBehaviour
     void OnMouseDown()
     {
         Debug.Log($"Player has played ${card.Name}");
-        //controller.PlayCard(card);
+        controller.onCardPlay.Invoke(card);
     }
 }

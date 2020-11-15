@@ -9,19 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a1533d9f85bfc241a1005296a66b748, type: 3}
-  m_Name: Bandage
+  m_Script: {fileID: 11500000, guid: d2b21bd215703174da443ef8ea19639e, type: 3}
+  m_Name: Raider
   m_EditorClassIdentifier: 
-  Name: Bandage
-  Effects:
-  - Type: 2
-    Amount: 2
-    Target: 0
+  Name: Raider
+  Class: 0
+  MaxHealth: 13
+  Backpack: []
+  OnEnter:
+  - Type: 1
+    Amount: 3
+    Target: 9
     Condition: []
-  - Type: 2
-    Amount: 2
-    Target: 2
-    Condition:
-    - Condition: 1
-      Value: Medic
-  instance: {fileID: 0}
+  OnExit: []
+  OnPrepare: []

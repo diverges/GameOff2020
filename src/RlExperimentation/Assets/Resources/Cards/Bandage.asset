@@ -10,17 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8a1533d9f85bfc241a1005296a66b748, type: 3}
-  m_Name: Pistol
+  m_Name: Bandage
   m_EditorClassIdentifier: 
-  Name: Pistol
+  Name: Bandage
   Effects:
-  - Type: 1
-    Amount: 3
-    Target: 1
-    Condition: []
-  - Type: 1
+  - Type: 2
     Amount: 2
-    Target: 1
+    Target: 3
+    Condition: []
+  - Type: 2
+    Amount: 2
+    Target: 5
     Condition:
     - Condition: 1
-      Value: Pistoleer
+      Value: Medic
+  instance: {fileID: 0}

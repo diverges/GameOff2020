@@ -98,8 +98,6 @@ namespace Assets.Scripts
             }
         }
 
-        //public void OnPrepare(BoardState state) => activeCaravanActor.OnPrepare(state);
-
         public ActorBase GetFirstAvailablePlayerTarget()
         {
             if (activeCaravanActor != null)
@@ -113,6 +111,19 @@ namespace Assets.Scripts
             }
 
             return null;
+        }
+
+        public ActorBase GetHighestHealthCaravanMember()
+        {
+            ActorBase result = null;
+            foreach(var member in caravan)
+            {
+                if (result == null || member.CurrentHealth > result.CurrentHealth)
+                {
+                    result = member;
+                }
+            }
+            return result;
         }
 
         void Update()

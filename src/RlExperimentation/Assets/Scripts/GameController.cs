@@ -17,7 +17,6 @@ namespace Assets.Scripts
         public Text combatText;
 
         public List<ActorBase> startingCaravan;
-        public List<CardBase> startingCards;
 
         public CaravanManager caravanManager;
         public HandManager handManager;
@@ -26,10 +25,12 @@ namespace Assets.Scripts
         private TurnState turnState;
         private int remainingActions = 0;
         private bool swapAvailable = false;
+        private EffectProcessor effectProcessor;
 
         public void Awake()
         {
             turnState = TurnState.EnemyPrepare;
+            effectProcessor = new EffectProcessor(handManager, caravanManager, enemyManager);
         }
 
         public void Start()
@@ -37,8 +38,8 @@ namespace Assets.Scripts
             caravanManager.InitializeCaravan(startingCaravan
                 .Select(item => UnityEngine.Object.Instantiate(item))
                 .ToList());
-            handManager.SetDeck(startingCards
-                .Select(item => UnityEngine.Object.Instantiate(item))
+            handManager.SetDeck(startingCaravan
+                .SelectMany(item =>item.Backpack.Select(card => Instantiate(card)))
                 .ToList());
             handManager.Shuffle();
             enemyManager.SetEnemyPack(new List<EnemyBase>
@@ -74,7 +75,7 @@ namespace Assets.Scripts
         {
             if (turnState == TurnState.PlayerAct)
             {
-                //state = card.OnPlay(state);
+                ProcessEffectsAndLog(card.Effects);
                 handManager.DiscardCard(card);
                 remainingActions--;
             }
@@ -97,11 +98,11 @@ namespace Assets.Scripts
             swapAvailable = false;
 
             var (prev, cur) = caravanManager.SetActiveMember(target);
-            if(prev!= null)
+            if(prev != null)
             {
-                //prev.OnExit(state, cur);
+                ProcessEffectsAndLog(prev.OnExit);
             }
-            //cur.OnEnter(state, prev);
+            ProcessEffectsAndLog(cur.OnEnter);
 
             if (remainingActions == 0)
             {
@@ -126,7 +127,7 @@ namespace Assets.Scripts
                     if (!enemyManager.IsActiveEnemyAlive()
                         && enemyManager.TrySpawnNextEnemy(out EnemyBase result))
                     {
-                        //result.OnEnter(state, null);
+                        ProcessEffectsAndLog(result.Instance.OnEnter);
                         turnState = TurnState.PlayerDraw;
                     }
                     else
@@ -136,7 +137,7 @@ namespace Assets.Scripts
                     }
                     break;
                 case TurnState.EnemyAct:
-                    //enemyManager.GetCurrentEnemy().OnPrepare(state);
+                    ProcessEffectsAndLog(enemyManager.GetCurrentEnemy().Intent);
                     caravanManager.CleanupCaravan();
                     turnState = TurnState.PlayerDraw;
                     break;
@@ -147,7 +148,8 @@ namespace Assets.Scripts
                     turnState = TurnState.PlayerPrepare;
                     break;
                 case TurnState.PlayerPrepare:
-                    //caravanManager.OnPrepare(state);
+                    if(caravanManager.activeCaravanActor)
+                        ProcessEffectsAndLog(caravanManager.activeCaravanActor.OnPrepare);
                     turnState = (caravanManager.HasRemainingMembers()) ? TurnState.PlayerAct : TurnState.End;
                     break;
                 case TurnState.PlayerAct:
@@ -159,6 +161,14 @@ namespace Assets.Scripts
                     break;
                 case TurnState.End:
                     break;
+            }
+        }
+
+        private void ProcessEffectsAndLog(List<Effect> effects)
+        {
+            foreach(var result in effectProcessor.ProcessEffect(effects))
+            {
+                Debug.Log(result);
             }
         }
     }
