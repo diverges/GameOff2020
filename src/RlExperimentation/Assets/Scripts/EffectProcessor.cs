@@ -32,18 +32,41 @@ namespace Assets.Scripts
                     return "No valid target.";
                 }
 
+                var conditionLog = "";
+                if(effect.Condition != null)
+                {
+                    foreach (var condition in effect.Condition)
+                    {
+                        switch (condition.Condition)
+                        {
+                            case Condition.Synergy:
+                                if (!caravan.activeCaravanActor || caravan.activeCaravanActor.Class.ToString() != condition.Value)
+                                {
+                                    return "Synergy condition not met";
+                                }
+                                conditionLog += "Synergy: ";
+                                break;
+                        }
+                    }
+                }
+
+                var effectLog = "";
                 switch (effect.Type)
                 {
                     case EffectType.Damage:
                         target.Damage(effect.Amount);
-                        return $"{target.Name} took {effect.Amount} damage";
+                        effectLog = $"{target.Name} took {effect.Amount} damage";
+                        break;
                     case EffectType.Heal:
                         target.Heal(effect.Amount);
-                        return $"{target.Name} was healed {effect.Amount} damage";
+                        effectLog = $"{target.Name} was healed {effect.Amount} damage";
+                        break;
                     default:
                         Debug.LogError($"Effect not implemented: {JsonUtility.ToJson(effect)}");
                         return "No action";
                 }
+
+                return $"{conditionLog}{effectLog}";
             }).ToList();
         }
 
@@ -51,14 +74,24 @@ namespace Assets.Scripts
         {
             switch(target)
             {
-                case EffectTarget.CaravanActiveOrCaravan:
-                    yield return caravan.GetFirstAvailablePlayerTarget();
-                    break;
                 case EffectTarget.EnemyActive:
                     yield return enemy.GetCurrentEnemy().Instance;
                     break;
+                case EffectTarget.CaravanActive:
+                    yield return caravan.activeCaravanActor;
+                    break;
+                case EffectTarget.Caravan:
+                    foreach(var item in caravan.caravan)
+                        yield return item;
+                    break;
+                case EffectTarget.CaravanActiveOrCaravan:
+                    yield return caravan.GetFirstAvailablePlayerTarget();
+                    break;
                 case EffectTarget.CaravanHighestHealth:
                     yield return caravan.GetHighestHealthCaravanMember();
+                    break;
+                case EffectTarget.CaravanLowestHealth:
+                    yield return caravan.GetLowestHealthCaravanMember();
                     break;
                 default:
                     Debug.LogError($"Target not implemented: {target.ToString()}");

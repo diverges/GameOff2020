@@ -14,7 +14,9 @@ namespace Assets.Scripts
     {
         private const int MaxActionsPerTurn = 2;
 
+        private List<string> combatTextStore = new List<string>();
         public Text combatText;
+        public Text turnText;
 
         public List<ActorBase> startingCaravan;
 
@@ -57,18 +59,19 @@ namespace Assets.Scripts
         {
             if(turnState != TurnState.End)
             {
-                combatText.text = turnState.ToString();
-                combatText.text += $"\r\nEnemies Remaining {enemyManager.GetReminingEnemyCount()}";
-                combatText.text += $"\r\nActions {remainingActions}";
+                turnText.text = turnState.ToString();
+                turnText.text += $"\r\nEnemies Remaining {enemyManager.GetReminingEnemyCount()}";
+                turnText.text += $"\r\nActions {remainingActions}";
                 if(swapAvailable)
                 {
-                    combatText.text += $"\r\nCan Swap!";
+                    turnText.text += $"\r\nCan Swap!";
                 }
             }
             else
             {
-                combatText.text = (caravanManager.HasRemainingMembers()) ? "Victory!" : "Defeat!";
+                turnText.text = (caravanManager.HasRemainingMembers()) ? "Victory!" : "Defeat!";
             }
+            combatText.text = combatTextStore.Aggregate<string>((prev, cur) => $"{prev}\r\n{cur}");
         }
 
         public void PlayCard(CardBase card)
@@ -128,6 +131,7 @@ namespace Assets.Scripts
                         && enemyManager.TrySpawnNextEnemy(out EnemyBase result))
                     {
                         ProcessEffectsAndLog(result.Instance.OnEnter);
+                        result.Think();
                         turnState = TurnState.PlayerDraw;
                     }
                     else
@@ -138,6 +142,7 @@ namespace Assets.Scripts
                     break;
                 case TurnState.EnemyAct:
                     ProcessEffectsAndLog(enemyManager.GetCurrentEnemy().Intent);
+                    enemyManager.GetCurrentEnemy().Think();
                     caravanManager.CleanupCaravan();
                     turnState = TurnState.PlayerDraw;
                     break;
@@ -169,6 +174,12 @@ namespace Assets.Scripts
             foreach(var result in effectProcessor.ProcessEffect(effects))
             {
                 Debug.Log(result);
+                combatTextStore.Add(result);
+            }
+            var count = combatTextStore.Count();
+            if ( count > 15)
+            {
+                combatTextStore.RemoveRange(0, count-15);
             }
         }
     }

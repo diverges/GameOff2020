@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts;
 using Assets.Scripts.Core;
 using Assets.Scripts.ScriptableObjects;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -22,7 +23,7 @@ public class CardView : MonoBehaviour
 
         this.card = card;
         headerText.text = card.Name;
-        //descriptionText.text = card.Description;
+        descriptionText.text = string.Join("\r\n", card.Effects.Select(effect => effect.ToString()));
     }
 
     void OnMouseDown()

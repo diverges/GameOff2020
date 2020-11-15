@@ -23,15 +23,15 @@ MonoBehaviour:
   OnEnter:
   - Type: 2
     Amount: 2
-    Target: 7
+    Target: 104
     Condition: []
   OnExit:
   - Type: 2
     Amount: 2
-    Target: 8
+    Target: 100
     Condition: []
   OnPrepare:
   - Type: 2
     Amount: 1
-    Target: 5
+    Target: 102
     Condition: []

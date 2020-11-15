@@ -126,6 +126,19 @@ namespace Assets.Scripts
             return result;
         }
 
+        public ActorBase GetLowestHealthCaravanMember()
+        {
+            ActorBase result = null;
+            foreach (var member in caravan)
+            {
+                if (result == null || member.CurrentHealth < result.CurrentHealth)
+                {
+                    result = member;
+                }
+            }
+            return result;
+        }
+
         void Update()
         {
             foreach(var spawn in orderedCaravanSpawns)

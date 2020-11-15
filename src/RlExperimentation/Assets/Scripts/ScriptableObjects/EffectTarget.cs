@@ -8,15 +8,15 @@ namespace Assets.Scripts.ScriptableObjects
 {
     public enum EffectTarget
     {
-        EnemyActive,
+        EnemyActive = 0,
         EnemyPack,
         EnemyActiveAndPack,
-        CaravanActive,
+
+        CaravanActive = 100,
         CaravanActiveOrCaravan,
         Caravan,
         CaravanAndActive,
         CaravanLowestHealth,
-        NextActive,
         CaravanHighestHealth
     }
 }

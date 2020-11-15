@@ -19,7 +19,7 @@ MonoBehaviour:
   OnEnter:
   - Type: 1
     Amount: 3
-    Target: 9
+    Target: 105
     Condition: []
   OnExit: []
   OnPrepare: []

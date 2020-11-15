@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Assets.Scripts.ScriptableObjects
@@ -50,6 +48,36 @@ namespace Assets.Scripts.ScriptableObjects
         public void Damage(int amount)
         {
             this.currentHealth = Math.Max(this.currentHealth - amount, 0);
+        }
+
+        public List<Tuple<string, string>> GetTooltipDescription()
+        {
+            var result = new List<Tuple<string, string>>()
+            {
+                new Tuple<string, string>(this.Name, this.Class.ToString())
+            };
+
+            if(OnEnter.Any())
+            {
+                result.Add(new Tuple<string, string>("Tag In", getEffectText(this.OnEnter)));
+            }
+
+            if (OnExit.Any())
+            {
+                result.Add(new Tuple<string, string>("Tag Out", getEffectText(this.OnExit)));
+            }
+
+            if (OnPrepare.Any())
+            {
+                result.Add(new Tuple<string, string>("As Active", getEffectText(this.OnPrepare)));
+            }
+
+            return result;
+        }
+
+        private string getEffectText(List<Effect> effects)
+        {
+            return string.Join("\r\n", effects.Select(effect => effect.ToString()));
         }
     }
 }

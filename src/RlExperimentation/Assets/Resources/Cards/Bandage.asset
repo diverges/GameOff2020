@@ -16,11 +16,11 @@ MonoBehaviour:
   Effects:
   - Type: 2
     Amount: 2
-    Target: 3
+    Target: 100
     Condition: []
   - Type: 2
     Amount: 2
-    Target: 5
+    Target: 102
     Condition:
     - Condition: 1
       Value: Medic

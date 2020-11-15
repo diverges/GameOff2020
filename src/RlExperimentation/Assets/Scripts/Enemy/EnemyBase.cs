@@ -19,8 +19,13 @@ namespace Assets.Scripts.Core
 
         public abstract string ActorName { get; }
 
-        public abstract string IntentName { get; }
+        public string IntentName { get; protected set; }
 
-        public abstract List<Effect> Intent { get; }
+        public List<Effect> Intent { get; protected set; } = new List<Effect>();
+
+        /// <summary>
+        /// Update Intent and IntentName
+        /// </summary>
+        public abstract void Think();
     }
 }

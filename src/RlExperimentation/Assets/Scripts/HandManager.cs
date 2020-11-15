@@ -40,7 +40,7 @@ namespace Assets.Scripts
             for (int i = 0; i < count; ++i)
             {
                 var cardPosition = handSpawn.transform.position;
-                cardPosition.x += (hand.Count * 360);
+                cardPosition.x += (hand.Count * 425);
                 var card = deck.Draw();
                 if(card)
                 {
