@@ -1,4 +1,7 @@
 ﻿using Assets.Scripts;
+using Assets.Scripts.Core;
+using Assets.Scripts.ScriptableObjects;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -7,7 +10,7 @@ using UnityEngine.UIElements;
 public class CardView : MonoBehaviour
 {
     [HideInInspector] public CardBase card;
-    [HideInInspector] public GameController controller;
+    [HideInInspector] public HandManager controller;
     public Text headerText;
     public Text descriptionText;
 
@@ -20,12 +23,12 @@ public class CardView : MonoBehaviour
 
         this.card = card;
         headerText.text = card.Name;
-        descriptionText.text = card.Description;
+        descriptionText.text = string.Join("\r\n", card.Effects.Select(effect => effect.ToString()));
     }
 
     void OnMouseDown()
     {
         Debug.Log($"Player has played ${card.Name}");
-        controller.PlayCard(card);
+        controller.onCardPlay.Invoke(card);
     }
 }

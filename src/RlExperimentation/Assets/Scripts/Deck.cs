@@ -1,4 +1,5 @@
-﻿using Assets.Scripts;
+﻿using Assets.Scripts.Core;
+using Assets.Scripts.ScriptableObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,13 +31,14 @@ public class Deck
     /// </summary>
     public CardBase Draw()
     {
-        if(!drawPile.Any())
+        if (!drawPile.Any())
         {
             Reset();
         }
 
-        var first = drawPile.First();
-        drawPile.RemoveAt(0);
+        var first = drawPile.FirstOrDefault();
+        if (first != null)
+            drawPile.RemoveAt(0);
         return first;
     }
 
