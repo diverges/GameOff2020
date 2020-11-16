@@ -45,6 +45,18 @@ namespace Assets.Scripts
             activeCaravanActor = null;
         }
 
+        public void OnPlayerTurnStart()
+        {
+            if(this.activeCaravanActor != null)
+            {
+                this.activeCaravanActor.OnActorTurnStart();
+            }
+            foreach(var member in caravan)
+            {
+                member.OnActorTurnStart();
+            }
+        }
+
         /// <summary>
         /// Check if any caravan members remain
         /// </summary>

@@ -37,6 +37,7 @@ namespace Assets.Scripts.Enemy
                 }};
                 takeAimBuf = false;
             }
+            intent = Random.Range(0, 10);
         }
     }
 }

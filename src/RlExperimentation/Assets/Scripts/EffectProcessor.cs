@@ -50,6 +50,8 @@ namespace Assets.Scripts
                     }
                 }
 
+                effect = target.OnEffectTarget(effect);
+
                 var effectLog = "";
                 switch (effect.Type)
                 {

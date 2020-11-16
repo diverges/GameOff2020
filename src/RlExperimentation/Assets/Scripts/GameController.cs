@@ -78,7 +78,16 @@ namespace Assets.Scripts
         {
             if (turnState == TurnState.PlayerAct)
             {
-                ProcessEffectsAndLog(card.Effects);
+                if (caravanManager.activeCaravanActor != null)
+                {
+                    ProcessEffectsAndLog(card.Effects
+                        .Select((effect) => caravanManager.activeCaravanActor.OnEffectSource(effect))
+                        .ToList());
+                }
+                else
+                {
+                    ProcessEffectsAndLog(card.Effects);
+                }
                 handManager.DiscardCard(card);
                 remainingActions--;
             }
@@ -127,6 +136,7 @@ namespace Assets.Scripts
             switch (turnState)
             {
                 case TurnState.EnemyPrepare:
+                    enemyManager.OnEnemyTurnStart();
                     if (!enemyManager.IsActiveEnemyAlive()
                         && enemyManager.TrySpawnNextEnemy(out EnemyBase result))
                     {
@@ -141,12 +151,15 @@ namespace Assets.Scripts
                     }
                     break;
                 case TurnState.EnemyAct:
-                    ProcessEffectsAndLog(enemyManager.GetCurrentEnemy().Intent);
-                    enemyManager.GetCurrentEnemy().Think();
+                    var enemy = enemyManager.GetCurrentEnemy();
+                    ProcessEffectsAndLog(enemy.Intent.Select(
+                        effect => enemy.Instance.OnEffectSource(effect)).ToList());
+                    enemy.Think();
                     caravanManager.CleanupCaravan();
                     turnState = TurnState.PlayerDraw;
                     break;
                 case TurnState.PlayerDraw:
+                    caravanManager.OnPlayerTurnStart();
                     remainingActions = MaxActionsPerTurn;
                     swapAvailable = true;
                     handManager.DrawCard(4);

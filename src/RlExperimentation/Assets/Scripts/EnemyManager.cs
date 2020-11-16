@@ -19,6 +19,18 @@ namespace Assets.Scripts
             enemy = null;
         }
 
+        public void OnEnemyTurnStart()
+        {
+            if (this.enemy != null)
+            {
+                this.enemy.Instance.OnActorTurnStart();
+            }
+            foreach (var member in enemyPack)
+            {
+                member.Instance.OnActorTurnStart();
+            }
+        }
+
         public void SetEnemyPack(List<EnemyBase> enemyPack)
         {
             this.enemyPack = enemyPack;

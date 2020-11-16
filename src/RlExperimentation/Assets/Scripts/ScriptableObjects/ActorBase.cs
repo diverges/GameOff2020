@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Scripts.Status;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -43,6 +44,50 @@ namespace Assets.Scripts.ScriptableObjects
 
         public List<Effect> OnPrepare;
 
+        private Dictionary<string, StatusBase> statusCollection = new Dictionary<string, StatusBase>();
+
+        public void ApplyStatus(StatusBase status)
+        {
+            if (statusCollection.ContainsKey(status.Name))
+            {
+                statusCollection[status.Name].IncreaseIntensity(status.Intensity);
+                return;
+            }
+            statusCollection.Add(status.Name, status);
+        }
+
+        public void OnActorTurnStart()
+        {
+            foreach (var key in statusCollection.Keys)
+            {
+                statusCollection[key].OnActorTurnStart(this);
+                if (statusCollection[key].IsExpired)
+                {
+                    statusCollection.Remove(key);
+                }
+            }
+        }
+
+        public Effect OnEffectSource(Effect effect)
+        {
+            foreach(var entry in statusCollection)
+            {
+                effect = entry.Value.OnEffectSource(effect);
+            }
+            return effect;
+        }
+
+        public Effect OnEffectTarget(Effect effect)
+        {
+            foreach (var entry in statusCollection)
+            {
+                effect = entry.Value.OnEffectTarget(effect);
+            }
+            return effect;
+        }
+
+        public void ClearStatus() => statusCollection.Clear();
+
         public void Heal(int amount)
         {
             this.currentHealth = Math.Min(this.currentHealth + amount, MaxHealth);
@@ -63,23 +108,23 @@ namespace Assets.Scripts.ScriptableObjects
 
             if(OnEnter.Any())
             {
-                result.Add(new Tuple<string, string>("Tag In", getEffectText(this.OnEnter)));
+                result.Add(new Tuple<string, string>("Tag In", GetEffectText(this.OnEnter)));
             }
 
             if (OnExit.Any())
             {
-                result.Add(new Tuple<string, string>("Tag Out", getEffectText(this.OnExit)));
+                result.Add(new Tuple<string, string>("Tag Out", GetEffectText(this.OnExit)));
             }
 
             if (OnPrepare.Any())
             {
-                result.Add(new Tuple<string, string>("As Active", getEffectText(this.OnPrepare)));
+                result.Add(new Tuple<string, string>("As Active", GetEffectText(this.OnPrepare)));
             }
 
             return result;
         }
 
-        private string getEffectText(List<Effect> effects)
+        private string GetEffectText(List<Effect> effects)
         {
             return string.Join("\r\n", effects.Select(effect => effect.ToString()));
         }
