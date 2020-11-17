@@ -11,6 +11,8 @@ namespace Assets.Scripts.ScriptableObjects
         NoOp,
         Damage,
         Heal,
-        Synergy
+        Synergy,
+        StatusIntensityBased,
+        StatusDurationBased
     }
 }

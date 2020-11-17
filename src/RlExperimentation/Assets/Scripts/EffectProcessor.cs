@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.ScriptableObjects;
+using Assets.Scripts.Status;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -20,7 +21,7 @@ namespace Assets.Scripts
 
         public IEnumerable<string> ProcessEffect(IEnumerable<Effect> effects)
         {
-            return effects.SelectMany(effect => ProcessEffect(effect));
+            return effects.SelectMany(effect => ProcessEffect(new Effect(effect)));
         }
 
         public IEnumerable<string> ProcessEffect(Effect effect)
@@ -55,6 +56,11 @@ namespace Assets.Scripts
                 var effectLog = "";
                 switch (effect.Type)
                 {
+                    case EffectType.StatusDurationBased:
+                    case EffectType.StatusIntensityBased:
+                        target.ApplyStatus(StatusBase.Create(effect.StatusId));
+                        effectLog = $"{target.Name} now has {effect.StatusId} damage";
+                        break;
                     case EffectType.Damage:
                         target.Damage(effect.Amount);
                         effectLog = $"{target.Name} took {effect.Amount} damage";
