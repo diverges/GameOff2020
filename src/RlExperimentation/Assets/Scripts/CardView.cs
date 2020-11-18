@@ -23,7 +23,14 @@ public class CardView : MonoBehaviour
 
         this.card = card;
         headerText.text = card.Name;
-        descriptionText.text = string.Join("\r\n", card.Effects.Select(effect => effect.ToString()));
+        if(string.IsNullOrWhiteSpace(card.Description))
+        {
+            descriptionText.text = string.Join("\r\n", card.Effects.Select(effect => effect.ToString()));
+        }
+        else
+        {
+            descriptionText.text = card.Description;
+        }
     }
 
     void OnMouseDown()

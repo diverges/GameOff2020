@@ -13,6 +13,9 @@ namespace Assets.Scripts.ScriptableObjects
         Heal,
         Synergy,
         StatusIntensityBased,
-        StatusDurationBased
+        StatusDurationBased,
+        Draw,
+        GainAction,
+        CanSwapAgain
     }
 }

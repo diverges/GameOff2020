@@ -46,6 +46,8 @@ namespace Assets.Scripts.ScriptableObjects
 
         private Dictionary<string, StatusBase> statusCollection = new Dictionary<string, StatusBase>();
 
+        public bool HasStatus(string status) => statusCollection.ContainsKey(status);
+
         public void ApplyStatus(StatusBase status)
         {
             if (statusCollection.ContainsKey(status.Name))
@@ -58,14 +60,17 @@ namespace Assets.Scripts.ScriptableObjects
 
         public void OnActorTurnStart()
         {
+            var expiredKeys = new List<string>();
             foreach (var key in statusCollection.Keys)
             {
                 statusCollection[key].OnActorTurnStart(this);
                 if (statusCollection[key].IsExpired)
                 {
-                    statusCollection.Remove(key);
+                    expiredKeys.Add(key);
                 }
             }
+            foreach (var key in expiredKeys)
+                statusCollection.Remove(key);
         }
 
         public Effect OnEffectSource(Effect effect)

@@ -19,14 +19,14 @@ namespace Assets.Scripts
             this.enemy = enemy;
         }
 
-        public IEnumerable<string> ProcessEffect(IEnumerable<Effect> effects)
+        public IEnumerable<string> ProcessEffect(IEnumerable<Effect> effects, ActorBase source)
         {
-            return effects.SelectMany(effect => ProcessEffect(new Effect(effect)));
+            return effects.SelectMany(effect => ProcessEffect(new Effect(effect), source));
         }
 
-        public IEnumerable<string> ProcessEffect(Effect effect)
+        public IEnumerable<string> ProcessEffect(Effect effect, ActorBase source)
         {
-            return GetTarget(effect.Target).Select(target =>
+            return GetTarget(effect.Target, source).Select(target =>
             {
                 if(target == null)
                 {
@@ -41,11 +41,20 @@ namespace Assets.Scripts
                         switch (condition.Condition)
                         {
                             case Condition.Synergy:
-                                if (!caravan.activeCaravanActor || caravan.activeCaravanActor.Class.ToString() != condition.Value)
+                                if (!caravan.activeCaravanActor
+                                    || caravan.activeCaravanActor.Class.ToString() != condition.Value)
                                 {
-                                    return "Synergy condition not met";
+                                    return "Synergy condition not met.";
                                 }
                                 conditionLog += "Synergy: ";
+                                break;
+                            case Condition.EnemyStatus:
+                                if (enemy.GetCurrentEnemy() == null
+                                    || !enemy.GetCurrentEnemy().Instance.HasStatus(condition.Value))
+                                {
+                                    return "Status condition not met.";
+                                }
+                                conditionLog += "Status: ";
                                 break;
                         }
                     }
@@ -56,9 +65,19 @@ namespace Assets.Scripts
                 var effectLog = "";
                 switch (effect.Type)
                 {
+                    case EffectType.GainAction:
+                        this.hand.remainingActions += effect.Amount;
+                        effectLog = $"Gained {effect.Amount} actions.";
+                        break;
+                    case EffectType.Draw:
+                        this.hand.DrawCard(effect.Amount);
+                        effectLog = $"Draw {effect.Amount}.";
+                        break;
                     case EffectType.StatusDurationBased:
                     case EffectType.StatusIntensityBased:
-                        target.ApplyStatus(StatusBase.Create(effect.StatusId));
+                        var status = StatusBase.Create(effect.StatusId);
+                        status.IncreaseIntensity(effect.Amount);
+                        target.ApplyStatus(status);
                         effectLog = $"{target.Name} now has {effect.StatusId} damage";
                         break;
                     case EffectType.Damage:
@@ -69,6 +88,10 @@ namespace Assets.Scripts
                         target.Heal(effect.Amount);
                         effectLog = $"{target.Name} was healed {effect.Amount} damage";
                         break;
+                    case EffectType.CanSwapAgain:
+                        hand.swapAvailable = true;
+                        effectLog = $"Swap refreshed";
+                        break;
                     default:
                         Debug.LogError($"Effect not implemented: {JsonUtility.ToJson(effect)}");
                         return "No action";
@@ -78,10 +101,13 @@ namespace Assets.Scripts
             }).ToList();
         }
 
-        private IEnumerable<ActorBase> GetTarget(EffectTarget target)
+        private IEnumerable<ActorBase> GetTarget(EffectTarget target, ActorBase source)
         {
             switch(target)
             {
+                case EffectTarget.Self:
+                    yield return source;
+                    break;
                 case EffectTarget.EnemyActive:
                     yield return enemy.GetCurrentEnemy().Instance;
                     break;

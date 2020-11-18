@@ -12,9 +12,9 @@ namespace Assets.Scripts.Status
 {
     public enum StatusId
     {
-        None,
+        None = 0,
         // Per Turn
-        Bleed = 0,
+        Bleed,
 
         // As Source
         Weaken = 100,
@@ -35,7 +35,7 @@ namespace Assets.Scripts.Status
         /// </summary>
         public int Intensity { get; protected set; }
 
-        public virtual bool IsExpired { get => Intensity > 0; }
+        public virtual bool IsExpired { get => Intensity <= 0; }
 
         public virtual void IncreaseIntensity(int amount)
         {

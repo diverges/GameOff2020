@@ -9,7 +9,8 @@ namespace Assets.Scripts.ScriptableObjects
     public enum Condition
     {
         NoOp,
-        Synergy
+        Synergy,
+        EnemyStatus
     }
 
     [Serializable]

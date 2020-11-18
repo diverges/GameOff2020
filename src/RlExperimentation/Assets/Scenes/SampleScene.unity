@@ -586,6 +586,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  remainingActions: 0
+  swapAvailable: 0
 --- !u!1 &913720694 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 913952482787207389, guid: 2e7038ca0b36953419a893be1af728f1, type: 3}
@@ -1147,6 +1149,8 @@ MonoBehaviour:
   startingCaravan:
   - {fileID: 11400000, guid: f05caa05c6aa8904f95492e137dd6484, type: 2}
   - {fileID: 11400000, guid: 87d0df949ae06324fa7fa14f3d45a126, type: 2}
+  - {fileID: 11400000, guid: 94fedeadf761e354dbd077e422315e90, type: 2}
+  - {fileID: 11400000, guid: f8e6a212ce405344e9ceb63d0ea93fee, type: 2}
   caravanManager: {fileID: 1329152082}
   handManager: {fileID: 877060158}
   enemyManager: {fileID: 430821553}

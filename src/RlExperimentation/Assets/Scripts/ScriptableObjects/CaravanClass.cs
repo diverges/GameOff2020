@@ -4,6 +4,8 @@
     {
         None,
         Medic,
-        Pistoleer
+        Pistoleer,
+        Duelist,
+        Mercenary
     }
 }

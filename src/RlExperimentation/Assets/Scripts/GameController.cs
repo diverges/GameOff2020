@@ -25,8 +25,6 @@ namespace Assets.Scripts
         public EnemyManager enemyManager;
 
         private TurnState turnState;
-        private int remainingActions = 0;
-        private bool swapAvailable = false;
         private EffectProcessor effectProcessor;
 
         public void Awake()
@@ -61,8 +59,8 @@ namespace Assets.Scripts
             {
                 turnText.text = turnState.ToString();
                 turnText.text += $"\r\nEnemies Remaining {enemyManager.GetReminingEnemyCount()}";
-                turnText.text += $"\r\nActions {remainingActions}";
-                if(swapAvailable)
+                turnText.text += $"\r\nActions {handManager.remainingActions}";
+                if(handManager.swapAvailable)
                 {
                     turnText.text += $"\r\nCan Swap!";
                 }
@@ -82,18 +80,18 @@ namespace Assets.Scripts
                 {
                     ProcessEffectsAndLog(card.Effects
                         .Select((effect) => caravanManager.activeCaravanActor.OnEffectSource(effect))
-                        .ToList());
+                        .ToList(), null);
                 }
                 else
                 {
-                    ProcessEffectsAndLog(card.Effects);
+                    ProcessEffectsAndLog(card.Effects, null);
                 }
                 handManager.DiscardCard(card);
-                remainingActions--;
+                handManager.remainingActions--;
             }
-            Debug.Log($"Player has ${remainingActions} action left.");
+            Debug.Log($"Player has ${handManager.remainingActions} action left.");
 
-            if (remainingActions == 0)
+            if (handManager.remainingActions == 0)
             {
                 OnPlayerActFinish();
             }
@@ -101,22 +99,22 @@ namespace Assets.Scripts
 
         public void SwapWithActive(CaravanMember target)
         {
-            if(turnState != TurnState.PlayerAct || !swapAvailable)
+            if(turnState != TurnState.PlayerAct || !handManager.swapAvailable)
             {
                 return;
             }
 
-            remainingActions--;
-            swapAvailable = false;
+            handManager.remainingActions--;
+            handManager.swapAvailable = false;
 
             var (prev, cur) = caravanManager.SetActiveMember(target);
             if(prev != null)
             {
-                ProcessEffectsAndLog(prev.OnExit);
+                ProcessEffectsAndLog(prev.OnExit, prev);
             }
-            ProcessEffectsAndLog(cur.OnEnter);
+            ProcessEffectsAndLog(cur.OnEnter, cur);
 
-            if (remainingActions == 0)
+            if (handManager.remainingActions == 0)
             {
                 OnPlayerActFinish();
             }
@@ -140,7 +138,9 @@ namespace Assets.Scripts
                     if (!enemyManager.IsActiveEnemyAlive()
                         && enemyManager.TrySpawnNextEnemy(out EnemyBase result))
                     {
-                        ProcessEffectsAndLog(result.Instance.OnEnter);
+                        ProcessEffectsAndLog(
+                            result.Instance.OnEnter,
+                            result.Instance);
                         result.Think();
                         turnState = TurnState.PlayerDraw;
                     }
@@ -153,21 +153,24 @@ namespace Assets.Scripts
                 case TurnState.EnemyAct:
                     var enemy = enemyManager.GetCurrentEnemy();
                     ProcessEffectsAndLog(enemy.Intent.Select(
-                        effect => enemy.Instance.OnEffectSource(effect)).ToList());
+                        effect => enemy.Instance.OnEffectSource(effect)).ToList(),
+                        enemy.Instance);
                     enemy.Think();
                     caravanManager.CleanupCaravan();
                     turnState = TurnState.PlayerDraw;
                     break;
                 case TurnState.PlayerDraw:
+                    handManager.remainingActions = MaxActionsPerTurn;
+                    handManager.swapAvailable = true;
                     caravanManager.OnPlayerTurnStart();
-                    remainingActions = MaxActionsPerTurn;
-                    swapAvailable = true;
                     handManager.DrawCard(4);
                     turnState = TurnState.PlayerPrepare;
                     break;
                 case TurnState.PlayerPrepare:
                     if(caravanManager.activeCaravanActor)
-                        ProcessEffectsAndLog(caravanManager.activeCaravanActor.OnPrepare);
+                        ProcessEffectsAndLog(
+                            caravanManager.activeCaravanActor.OnPrepare,
+                            caravanManager.activeCaravanActor);
                     turnState = (caravanManager.HasRemainingMembers()) ? TurnState.PlayerAct : TurnState.End;
                     break;
                 case TurnState.PlayerAct:
@@ -182,9 +185,9 @@ namespace Assets.Scripts
             }
         }
 
-        private void ProcessEffectsAndLog(List<Effect> effects)
+        private void ProcessEffectsAndLog(List<Effect> effects, ActorBase source)
         {
-            foreach(var result in effectProcessor.ProcessEffect(effects))
+            foreach(var result in effectProcessor.ProcessEffect(effects, source))
             {
                 Debug.Log(result);
                 combatTextStore.Add(result);

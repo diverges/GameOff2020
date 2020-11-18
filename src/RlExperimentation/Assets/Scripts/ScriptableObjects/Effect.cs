@@ -54,6 +54,8 @@ namespace Assets.Scripts.ScriptableObjects
                 {
                     case ScriptableObjects.Condition.Synergy:
                         return $"<b>Synergy</b> {condition.Value}";
+                    case ScriptableObjects.Condition.EnemyStatus:
+                        return $"If the enemy has <b>{condition.Value}</b>";
                     default:
                         return "";
                 }
@@ -62,8 +64,18 @@ namespace Assets.Scripts.ScriptableObjects
             var effectText = "";
             switch (this.Type)
             {
+                case EffectType.CanSwapAgain:
+                    effectText = $"Can tag in again.";
+                    break;
+                case EffectType.GainAction:
+                    var actionText = (Amount == 1) ? "action" : "actions";
+                    effectText = $"Gain {Amount} {actionText}.";
+                    break;
+                case EffectType.Draw:
+                    effectText = $"Draw {Amount}.";
+                    break;
                 case EffectType.StatusIntensityBased:
-                    effectText = $"Apply {Amount} {StatusId} to {TargetToFriendlyString(this.Target)}.";
+                    effectText = $"Apply {Amount} <b>{StatusId}</b> to {TargetToFriendlyString(this.Target)}.";
                     break;
                 case EffectType.StatusDurationBased:
                     effectText = GetDurationBasedStatusText();
@@ -97,6 +109,8 @@ namespace Assets.Scripts.ScriptableObjects
                     return "enemy pack";
                 case EffectTarget.EnemyActiveAndPack:
                     return "all enemies";
+                case EffectTarget.Self:
+                    return "self";
                 case EffectTarget.CaravanActive:
                     return "active member";
                 case EffectTarget.CaravanActiveOrCaravan:
@@ -110,7 +124,7 @@ namespace Assets.Scripts.ScriptableObjects
                 case EffectTarget.CaravanHighestHealth:
                     return "highest health caravan member";
                 default:
-                    throw new Exception("No valid value");
+                    throw new Exception($"No valid value: {target}");
             }
         }
     }

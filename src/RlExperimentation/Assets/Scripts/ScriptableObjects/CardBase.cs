@@ -9,6 +9,8 @@ namespace Assets.Scripts.ScriptableObjects
     public class CardBase : ScriptableObject
     {
         public string Name;
+        [TextArea]
+        public string Description;
         public List<Effect> Effects;
         [HideInInspector] public GameObject instance;
     }

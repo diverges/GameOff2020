@@ -20,6 +20,9 @@ namespace Assets.Scripts
         public GameObject cardPrefab;
         public CardPlayEvent onCardPlay;
 
+
+        public int remainingActions = 0;
+        public bool swapAvailable = false;
         private Deck deck;
         private List<CardBase> hand;
 

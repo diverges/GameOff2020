@@ -17,6 +17,7 @@ namespace Assets.Scripts.ScriptableObjects
         Caravan,
         CaravanAndActive,
         CaravanLowestHealth,
-        CaravanHighestHealth
+        CaravanHighestHealth,
+        Self
     }
 }
