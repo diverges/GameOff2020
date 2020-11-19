@@ -28,6 +28,7 @@ namespace Assets.Scripts
                 IntentDescription.text = string.Join(
                     "\r\n",
                     actor.Intent.Select(effect => effect.ToString()));
+                GetComponentInChildren<StatusView>().actor = this.actor.Instance;
             }
 
             if(tooltipInstance != null)

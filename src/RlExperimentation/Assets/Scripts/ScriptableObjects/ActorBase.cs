@@ -44,7 +44,9 @@ namespace Assets.Scripts.ScriptableObjects
 
         public List<Effect> OnPrepare;
 
-        private Dictionary<string, StatusBase> statusCollection = new Dictionary<string, StatusBase>();
+        private readonly Dictionary<string, StatusBase> statusCollection = new Dictionary<string, StatusBase>();
+
+        public IEnumerable<StatusBase> GetStatus() => statusCollection.Values;
 
         public bool HasStatus(string status) => statusCollection.ContainsKey(status);
 

@@ -21,8 +21,8 @@ MonoBehaviour:
     StatusId: 0
     Condition: []
   - Type: 5
-    Amount: 1
-    Target: 106
+    Amount: 2
+    Target: 100
     StatusId: 100
     Condition: []
   - Type: 8

@@ -37,6 +37,8 @@ namespace Assets.Scripts
         public void SetCaravanMember(ActorBase actor)
         {
             this.actor = actor;
+            var statusView = GetComponentInChildren<StatusView>();
+            statusView.actor = actor;
             if (this.actor == null)
             {
                 return;
