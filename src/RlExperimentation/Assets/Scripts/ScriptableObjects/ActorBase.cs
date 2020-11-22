@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Status;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -44,6 +45,9 @@ namespace Assets.Scripts.ScriptableObjects
 
         public List<Effect> OnPrepare;
 
+        public ActorAnimations animations;
+
+        #region Status
         private readonly Dictionary<string, StatusBase> statusCollection = new Dictionary<string, StatusBase>();
 
         public IEnumerable<StatusBase> GetStatus() => statusCollection.Values;
@@ -59,6 +63,8 @@ namespace Assets.Scripts.ScriptableObjects
             }
             statusCollection.Add(status.Name, status);
         }
+
+        public void ClearStatus() => statusCollection.Clear();
 
         public void OnActorTurnStart()
         {
@@ -77,7 +83,7 @@ namespace Assets.Scripts.ScriptableObjects
 
         public Effect OnEffectSource(Effect effect)
         {
-            foreach(var entry in statusCollection)
+            foreach (var entry in statusCollection)
             {
                 effect = entry.Value.OnEffectSource(effect);
             }
@@ -91,20 +97,22 @@ namespace Assets.Scripts.ScriptableObjects
                 effect = entry.Value.OnEffectTarget(effect);
             }
             return effect;
-        }
-
-        public void ClearStatus() => statusCollection.Clear();
+        } 
+        #endregion
 
         public void Heal(int amount)
         {
             this.currentHealth = Math.Min(this.currentHealth + amount, MaxHealth);
+            this.animations.PlayHeal(amount);
         }
 
         public void Damage(int amount)
         {
             this.currentHealth = Math.Max(this.currentHealth - amount, 0);
+            this.animations.PlayDamage(amount);
         }
 
+        #region Description
         public List<Tuple<string, string>> GetTooltipDescription()
         {
             var name = (CaravanClass.None == this.Class) ? this.Name : $"{this.Name}, <i>{this.Class.ToString()}</i>";
@@ -113,7 +121,7 @@ namespace Assets.Scripts.ScriptableObjects
                 new Tuple<string, string>(name, this.Description)
             };
 
-            if(OnEnter.Any())
+            if (OnEnter.Any())
             {
                 result.Add(new Tuple<string, string>("Tag In", GetEffectText(this.OnEnter)));
             }
@@ -134,6 +142,7 @@ namespace Assets.Scripts.ScriptableObjects
         private string GetEffectText(List<Effect> effects)
         {
             return string.Join("\r\n", effects.Select(effect => effect.ToString()));
-        }
+        } 
+        #endregion
     }
 }

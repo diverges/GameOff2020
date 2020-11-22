@@ -15,7 +15,8 @@ namespace Assets.Scripts
         public Text health;
 
         public GameObject tooltipPrefab;
-        [HideInInspector] public GameObject tooltipInstance;
+        [HideInInspector] private GameObject tooltipInstance;
+        public ActorAnimations animations;
 
         public void Update()
         {
@@ -44,6 +45,7 @@ namespace Assets.Scripts
                 return;
             }
 
+            actor.animations = this.animations;
             actorName.text = actor.Name;
             caravanClass.text = actor.Class.ToString();
             health.text = string.Format(healthFormat, actor.CurrentHealth, actor.MaxHealth);

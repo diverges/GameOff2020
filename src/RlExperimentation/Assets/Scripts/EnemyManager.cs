@@ -53,6 +53,7 @@ namespace Assets.Scripts
             if (enemyPack.Any())
             {
                 enemy = enemyPack.First();
+                enemy.Instance.animations = GetComponentInChildren<ActorAnimations>();
                 enemySpawn.actor = enemy;
                 enemyPack.RemoveAt(0);
                 result = enemy;

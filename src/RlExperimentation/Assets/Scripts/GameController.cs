@@ -2,6 +2,7 @@
 using Assets.Scripts.Enemy;
 using Assets.Scripts.ScriptableObjects;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -24,6 +25,7 @@ namespace Assets.Scripts
         public HandManager handManager;
         public EnemyManager enemyManager;
 
+        private bool encounterActive;
         private TurnState turnState;
         private EffectProcessor effectProcessor;
 
@@ -46,11 +48,9 @@ namespace Assets.Scripts
             {
                 new Raider(), new Raider(), new Raider(), new Raider()
             });
+            encounterActive = true;
 
-            do
-            {
-                ProcessTurnPhase();
-            } while (turnState != TurnState.PlayerAct && turnState != TurnState.End);
+            StartCoroutine(ProcessTurn());
         }
 
         public void Update()
@@ -123,31 +123,31 @@ namespace Assets.Scripts
         private void OnPlayerActFinish()
         {
             turnState = TurnState.PlayerEnd;
+            StartCoroutine(ProcessTurn());
+        }
+
+        private IEnumerator ProcessTurn()
+        {
             do
             {
-                ProcessTurnPhase();
+                yield return ProcessTurnPhase();
             } while (turnState != TurnState.PlayerAct && turnState != TurnState.End);
         }
 
-        private void ProcessTurnPhase()
+        private IEnumerator ProcessTurnPhase()
         {
             switch (turnState)
             {
                 case TurnState.EnemyPrepare:
                     enemyManager.OnEnemyTurnStart();
-                    if (!enemyManager.IsActiveEnemyAlive()
-                        && enemyManager.TrySpawnNextEnemy(out EnemyBase result))
+                    if (enemyManager.IsActiveEnemyAlive())
                     {
-                        ProcessEffectsAndLog(
-                            result.Instance.OnEnter,
-                            result.Instance);
-                        result.Think();
-                        turnState = TurnState.PlayerDraw;
+                        turnState = TurnState.EnemyAct;
                     }
                     else
                     {
-                        turnState = (enemyManager.IsActiveEnemyAlive())
-                            ? TurnState.EnemyAct : TurnState.End;
+                        turnState = (TryUpdateActiveEnemy())
+                            ? TurnState.PlayerDraw : TurnState.End;
                     }
                     break;
                 case TurnState.EnemyAct:
@@ -183,6 +183,7 @@ namespace Assets.Scripts
                 case TurnState.End:
                     break;
             }
+            yield return new WaitForSeconds(1);
         }
 
         private void ProcessEffectsAndLog(List<Effect> effects, ActorBase source)
@@ -197,6 +198,31 @@ namespace Assets.Scripts
             {
                 combatTextStore.RemoveRange(0, count-15);
             }
+
+            if (!TryUpdateActiveEnemy() && enemyManager.IsActiveEnemyAlive())
+            {
+                encounterActive = false;
+                Debug.Log("Encounter over");
+            }
+        }
+
+        private bool TryUpdateActiveEnemy()
+        {
+            if(enemyManager.IsActiveEnemyAlive())
+            {
+                return true;
+            }
+
+            if (enemyManager.TrySpawnNextEnemy(out EnemyBase result))
+            {
+                ProcessEffectsAndLog(
+                    result.Instance.OnEnter,
+                    result.Instance);
+                result.Think();
+                return true;
+            }
+
+            return false;
         }
     }
 }
