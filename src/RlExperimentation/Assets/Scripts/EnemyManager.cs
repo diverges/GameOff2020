@@ -54,6 +54,7 @@ namespace Assets.Scripts
             {
                 enemy = enemyPack.First();
                 enemy.Instance.animations = GetComponentInChildren<ActorAnimations>();
+                enemy.Instance.animations.EnterRight();
                 enemySpawn.actor = enemy;
                 enemyPack.RemoveAt(0);
                 result = enemy;

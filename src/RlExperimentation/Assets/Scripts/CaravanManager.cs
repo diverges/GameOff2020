@@ -84,6 +84,7 @@ namespace Assets.Scripts
             activeMember.SetCaravanMember(target.actor);
             activeCaravanActor = target.actor;
             target.SetCaravanMember(temp);
+            activeCaravanSpawn.SetActive(activeCaravanActor != null);
             return (temp, activeCaravanActor);
         }
 

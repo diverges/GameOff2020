@@ -108,10 +108,12 @@ namespace Assets.Scripts
             handManager.swapAvailable = false;
 
             var (prev, cur) = caravanManager.SetActiveMember(target);
-            if(prev != null)
+            if (prev != null)
             {
+                prev.animations.EnterRight();
                 ProcessEffectsAndLog(prev.OnExit, prev);
             }
+            cur.animations.EnterLeft();
             ProcessEffectsAndLog(cur.OnEnter, cur);
 
             if (handManager.remainingActions == 0)
