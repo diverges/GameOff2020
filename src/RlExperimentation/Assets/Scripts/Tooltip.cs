@@ -20,7 +20,7 @@ namespace Assets.Scripts
         {
             foreach(var node in nodes)
             {
-                var instance = Instantiate(tooltipNodePrefab, new Vector3(0, 0, 0), Quaternion.identity, transform);
+                var instance = Instantiate(tooltipNodePrefab, new Vector3(0, 0, -80), Quaternion.identity, transform);
                 instance.GetComponent<TooltipNode>().Set(node.Item1, node.Item2);
             }
             var layout = this.GetComponent<VerticalLayoutGroup>();
