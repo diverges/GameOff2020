@@ -72,6 +72,8 @@ namespace Assets.Scripts
             combatText.text = combatTextStore.Aggregate<string>((prev, cur) => $"{prev}\r\n{cur}");
         }
 
+        public bool CanSwap() => handManager.swapAvailable;
+
         public void PlayCard(CardBase card)
         {
             if (turnState == TurnState.PlayerAct)

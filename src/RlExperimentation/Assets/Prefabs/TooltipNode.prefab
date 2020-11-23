@@ -101,8 +101,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 8a54fdfd061cd7740a904d598950ec9d, type: 3}
-    m_FontSize: 28
+    m_Font: {fileID: 12800000, guid: af9c91c15c411914f868afcdbf6b0893, type: 3}
+    m_FontSize: 32
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2
@@ -112,13 +112,9 @@ MonoBehaviour:
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: 'Lorem ipsum dolor sit amet, consectetur
-
-    adipiscing elit. sed do eiusmod
-    tempor
-
-    incididunt ut labore et dolore magna aliqua.'
+    m_LineSpacing: 0.8
+  m_Text: Lorem ipsum dolor sit amet, consectetur adipiscing elit. sed do eiusmod
+    tempor incididunt ut labore et dolore magna aliqua.
 --- !u!1 &1246523604366231674
 GameObject:
   m_ObjectHideFlags: 0
@@ -158,10 +154,10 @@ RectTransform:
   m_Father: {fileID: 5104227354545833355}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: -15}
-  m_SizeDelta: {x: 500, y: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 540, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!223 &3365630383875879707
 Canvas:
@@ -461,7 +457,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 8a54fdfd061cd7740a904d598950ec9d, type: 3}
+    m_Font: {fileID: 12800000, guid: e3f13002849f1d84f80a7c4d42d0a549, type: 3}
     m_FontSize: 32
     m_FontStyle: 1
     m_BestFit: 0

@@ -14,6 +14,9 @@ namespace Assets.Scripts
 
     public class HandManager : MonoBehaviour
     {
+        private const int MaxHandWidth = 1800;
+        private const int MaxSeperatorWidth = 440;
+
         public Text deckDisplay;
         public Text discardDisplay;
         public GameObject handSpawn;
@@ -40,6 +43,7 @@ namespace Assets.Scripts
 
         public void DrawCard(int count)
         {
+            // Draw
             for (int i = 0; i < count; ++i)
             {
                 var cardPosition = handSpawn.transform.position;
@@ -48,13 +52,24 @@ namespace Assets.Scripts
                 if(card)
                 {
                     var instance = Instantiate(cardPrefab, cardPosition, Quaternion.identity);
-                    var view = instance.GetComponent<CardView>();
+                    var view = instance.GetComponentInChildren<CardView>();
                     view.controller = this;
                     card.instance = instance;
                     view.SetCardBase(card);
                     hand.Add(card);
                     Debug.Log($"Player drew {card.Name}");
                 }
+            }
+
+            // Reposition hand
+            var index = 0;
+            var seperatorWidth = Math.Min(MaxHandWidth / hand.Count(), MaxSeperatorWidth);
+            foreach(var card in hand)
+            {
+                var transform = card.instance.GetComponent<Transform>();
+                var newPosX = handSpawn.transform.position.x + index * seperatorWidth;
+                transform.position = new Vector3(newPosX, transform.position.y, -index);
+                index++;
             }
         }
 
