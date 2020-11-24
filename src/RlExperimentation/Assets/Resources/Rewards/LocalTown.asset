@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a47c0aa4bc38deb4a9a41ea4282e70a2, type: 3}
+  m_Name: LocalTown
+  m_EditorClassIdentifier: 
+  Title: A moment of respite
+  Description: "Arriving at a small fishing town the caravan finds locals willing
+    to help out cause.\r"
+  Next: {fileID: 0}
+  member:
+  - {fileID: 11400000, guid: 87d0df949ae06324fa7fa14f3d45a126, type: 2}
+  - {fileID: 11400000, guid: 94fedeadf761e354dbd077e422315e90, type: 2}
