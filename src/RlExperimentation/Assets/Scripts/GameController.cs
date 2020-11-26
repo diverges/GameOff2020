@@ -19,8 +19,6 @@ namespace Assets.Scripts
         public Text combatText;
         public Text turnText;
 
-        public List<ActorBase> startingCaravan;
-
         public CaravanManager caravanManager;
         public HandManager handManager;
         public EnemyManager enemyManager;
@@ -37,18 +35,31 @@ namespace Assets.Scripts
 
         public void Start()
         {
-            caravanManager.InitializeCaravan(startingCaravan
-                .Select(item => UnityEngine.Object.Instantiate(item))
-                .ToList());
-            handManager.SetDeck(startingCaravan
-                .SelectMany(item =>item.Backpack.Select(card => Instantiate(card)))
+            //caravanManager.InitializeCaravan(startingCaravan
+            //    .Select(item => UnityEngine.Object.Instantiate(item))
+            //    .ToList());
+            //handManager.SetDeck(startingCaravan
+            //    .SelectMany(item =>item.Backpack.Select(card => Instantiate(card)))
+            //    .ToList());
+            //handManager.Shuffle();
+            //enemyManager.SetEnemyPack(new List<EnemyBase>
+            //{
+            //    new Raider(), new Raider(), new Raider(), new Raider()
+            //});
+            //encounterActive = true;
+
+            //StartCoroutine(ProcessTurn());
+        }
+
+        public void StartEncounter(List<EnemyBase> enemies)
+        {
+            handManager.SetDeck(caravanManager.caravan
+                .SelectMany(item => item.Backpack.Select(card => Instantiate(card)))
                 .ToList());
             handManager.Shuffle();
-            enemyManager.SetEnemyPack(new List<EnemyBase>
-            {
-                new Raider(), new Raider(), new Raider(), new Raider()
-            });
+            enemyManager.SetEnemyPack(enemies);
             encounterActive = true;
+            turnState = TurnState.EnemyPrepare;
 
             StartCoroutine(ProcessTurn());
         }

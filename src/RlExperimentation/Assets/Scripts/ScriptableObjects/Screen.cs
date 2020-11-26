@@ -2,12 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Screen : ScriptableObject
+namespace Assets.Scripts.ScriptableObjects
 {
-    public string Title;
+    public abstract class ScreenBase : ScriptableObject
+    {
+        public string Title;
 
-    [TextArea]
-    public string Description;
+        [TextArea]
+        public string Description;
 
-    public Screen Next;
+        public ScreenBase Next;
+    }
 }
+

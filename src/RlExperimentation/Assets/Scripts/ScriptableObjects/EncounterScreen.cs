@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Scripts.Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ using UnityEngine;
 namespace Assets.Scripts.ScriptableObjects
 {
     [CreateAssetMenu(fileName = "Screen", menuName = "Screen/Encounter", order = 3)]
-    public class EncounterScreen : Screen
+    public class EncounterScreen : ScreenBase
     {
         public List<ActorBase> EnemyPack;
     }

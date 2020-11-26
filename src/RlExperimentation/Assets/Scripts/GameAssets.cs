@@ -17,5 +17,9 @@ namespace Assets.Scripts
         }
 
         public GameObject CombatText;
+
+        public GameObject pfStoryScreen;
+        public GameObject pfRewardScreen;
+        public GameObject pfSwapScreen;
     }
 }

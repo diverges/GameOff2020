@@ -19,4 +19,4 @@ MonoBehaviour:
     deliver the intel contained within the caravan to the Capital. All other forms
     of communication have failed. This small wago and its two volunteers are our
     last hope.
-  Next: {fileID: 0}
+  Next: {fileID: 11400000, guid: af58fbff7e2ae8449bb9ab5083f52e40, type: 2}

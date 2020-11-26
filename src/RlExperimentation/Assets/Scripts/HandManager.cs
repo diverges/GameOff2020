@@ -19,6 +19,7 @@ namespace Assets.Scripts
 
         public Text deckDisplay;
         public Text discardDisplay;
+        public Text actionsDisplay;
         public GameObject handSpawn;
         public GameObject cardPrefab;
         public CardPlayEvent onCardPlay;
@@ -98,6 +99,7 @@ namespace Assets.Scripts
 
         public void Update()
         {
+            actionsDisplay.text = this.remainingActions.ToString();
             deckDisplay.text = $"Deck: {deck.drawPile.Count}";
             discardDisplay.text = $"Discard: {deck.discardPile.Count}";
         }

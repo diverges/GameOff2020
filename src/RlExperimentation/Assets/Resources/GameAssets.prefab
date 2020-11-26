@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2973783739396431717}
   - component: {fileID: 8716506922572423554}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: GameAssets
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,3 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CombatText: {fileID: 5159131214925509042, guid: 69a4b9867d53dc6499181de399041f7d, type: 3}
+  pfStoryScreen: {fileID: 4427884298461098614, guid: ae40770759abcaf4290a0febe9965aac, type: 3}
+  pfEncounterScreen: {fileID: 0}
+  pfRewardScreen: {fileID: 7133460963312025535, guid: 9282326d1c0a3884088011c1230991b9, type: 3}
+  pfSwapScreen: {fileID: 762089988961720932, guid: f8598dee9b08f92448bd11a3d324fffb, type: 3}

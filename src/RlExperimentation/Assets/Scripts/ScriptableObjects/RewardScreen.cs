@@ -8,7 +8,7 @@ using UnityEngine;
 namespace Assets.Scripts.ScriptableObjects
 {
     [CreateAssetMenu(fileName = "Screen", menuName = "Screen/Reward", order = 4)]
-    public class RewardScreen : Screen
+    public class RewardScreen : ScreenBase
     {
         public List<ActorBase> member;
     }

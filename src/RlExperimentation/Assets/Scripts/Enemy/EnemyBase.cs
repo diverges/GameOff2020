@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
+using Assets.Scripts.Enemy;
 
 namespace Assets.Scripts.Core
 {
@@ -27,5 +28,16 @@ namespace Assets.Scripts.Core
         /// Update Intent and IntentName
         /// </summary>
         public abstract void Think();
+
+        public static EnemyBase Create(string actorName)
+        {
+            switch(actorName)
+            {
+                case "Raider":
+                    return new Raider();
+                default:
+                    throw new MissingComponentException();
+            }
+        }
     }
 }
