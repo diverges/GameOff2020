@@ -5170,6 +5170,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   curScreen: {fileID: 11400000, guid: 0b5a1153d813d2d409ef19c410699ee5, type: 2}
+  gameOverScreen: {fileID: 11400000, guid: e42c2e5200d6b3846b5dc3705c378b4d, type: 2}
   startingCaravan:
   - {fileID: 11400000, guid: f05caa05c6aa8904f95492e137dd6484, type: 2}
   - {fileID: 11400000, guid: 87d0df949ae06324fa7fa14f3d45a126, type: 2}
@@ -5324,6 +5325,7 @@ MonoBehaviour:
   caravanManager: {fileID: 1329152082}
   handManager: {fileID: 877060158}
   enemyManager: {fileID: 430821553}
+  scenarioManager: {fileID: 1384162038}
 --- !u!4 &1585183918
 Transform:
   m_ObjectHideFlags: 0

@@ -22,8 +22,8 @@ namespace Assets.Scripts
         public CaravanManager caravanManager;
         public HandManager handManager;
         public EnemyManager enemyManager;
+        public Scenarios scenarioManager;
 
-        private bool encounterActive;
         private TurnState turnState;
         private EffectProcessor effectProcessor;
 
@@ -33,24 +33,6 @@ namespace Assets.Scripts
             effectProcessor = new EffectProcessor(handManager, caravanManager, enemyManager);
         }
 
-        public void Start()
-        {
-            //caravanManager.InitializeCaravan(startingCaravan
-            //    .Select(item => UnityEngine.Object.Instantiate(item))
-            //    .ToList());
-            //handManager.SetDeck(startingCaravan
-            //    .SelectMany(item =>item.Backpack.Select(card => Instantiate(card)))
-            //    .ToList());
-            //handManager.Shuffle();
-            //enemyManager.SetEnemyPack(new List<EnemyBase>
-            //{
-            //    new Raider(), new Raider(), new Raider(), new Raider()
-            //});
-            //encounterActive = true;
-
-            //StartCoroutine(ProcessTurn());
-        }
-
         public void StartEncounter(List<EnemyBase> enemies)
         {
             handManager.SetDeck(caravanManager.caravan
@@ -58,30 +40,29 @@ namespace Assets.Scripts
                 .ToList());
             handManager.Shuffle();
             enemyManager.SetEnemyPack(enemies);
-            encounterActive = true;
             turnState = TurnState.EnemyPrepare;
 
             StartCoroutine(ProcessTurn());
         }
 
-        public void Update()
-        {
-            if(turnState != TurnState.End)
-            {
-                turnText.text = turnState.ToString();
-                turnText.text += $"\r\nEnemies Remaining {enemyManager.GetReminingEnemyCount()}";
-                turnText.text += $"\r\nActions {handManager.remainingActions}";
-                if(handManager.swapAvailable)
-                {
-                    turnText.text += $"\r\nCan Swap!";
-                }
-            }
-            else
-            {
-                turnText.text = (caravanManager.HasRemainingMembers()) ? "Victory!" : "Defeat!";
-            }
-            combatText.text = combatTextStore.Aggregate<string>((prev, cur) => $"{prev}\r\n{cur}");
-        }
+        //public void Update()
+        //{
+        //    if(turnState != TurnState.End)
+        //    {
+        //        turnText.text = turnState.ToString();
+        //        turnText.text += $"\r\nEnemies Remaining {enemyManager.GetReminingEnemyCount()}";
+        //        turnText.text += $"\r\nActions {handManager.remainingActions}";
+        //        if(handManager.swapAvailable)
+        //        {
+        //            turnText.text += $"\r\nCan Swap!";
+        //        }
+        //    }
+        //    else
+        //    {
+        //        turnText.text = (caravanManager.HasRemainingMembers()) ? "Victory!" : "Defeat!";
+        //    }
+        //    combatText.text = combatTextStore.Aggregate<string>((prev, cur) => $"{prev}\r\n{cur}");
+        //}
 
         public bool CanSwap() => handManager.swapAvailable;
 
@@ -147,6 +128,13 @@ namespace Assets.Scripts
             {
                 yield return ProcessTurnPhase();
             } while (turnState != TurnState.PlayerAct && turnState != TurnState.End);
+
+            if(turnState == TurnState.End)
+            {
+                caravanManager.CleanupCaravan();
+                handManager.DiscardPlayerHand();
+                scenarioManager.OnEndEncounter();
+            }
         }
 
         private IEnumerator ProcessTurnPhase()
@@ -216,7 +204,6 @@ namespace Assets.Scripts
 
             if (!TryUpdateActiveEnemy() && enemyManager.IsActiveEnemyAlive())
             {
-                encounterActive = false;
                 Debug.Log("Encounter over");
             }
         }

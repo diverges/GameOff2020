@@ -10,6 +10,7 @@ namespace Assets.Scripts
     public class Scenarios : MonoBehaviour
     {
         public ScreenBase curScreen;
+        public ScreenBase gameOverScreen;
         public List<ActorBase> startingCaravan;
 
         // Screen
@@ -42,8 +43,15 @@ namespace Assets.Scripts
 
         public void OnEndEncounter()
         {
-            // Encounter has ended progress to next screen.
-            this.curScreen = curScreen.Next;
+            if(caravanManager.HasRemainingMembers())
+            {
+                this.curScreen = curScreen.Next;
+            }
+            else
+            {
+                this.curScreen = gameOverScreen;
+            }
+            this.HandleCurrentScreenChange();
         }
 
         public void OnRewardPick(ActorBase target)

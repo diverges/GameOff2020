@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6aea058a5f3a3d848b7022776a0b99cd, type: 3}
-  m_Name: Tutorial
+  m_Name: 00_Tutorial
   m_EditorClassIdentifier: 
   Title: Scavengers!
   Description: "The smell of food must have lured a wild pack! Early in the morning
     their howls alert the members.\r"
-  Next: {fileID: 0}
+  Next: {fileID: 11400000, guid: bf41c6f19f33680438a11d2fb691ee01, type: 2}
   EnemyPack:
   - {fileID: 11400000, guid: 6bacc0764b0ca1b44ac0500e25a3284d, type: 2}
   - {fileID: 11400000, guid: 6bacc0764b0ca1b44ac0500e25a3284d, type: 2}

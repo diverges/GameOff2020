@@ -1,8 +1,8 @@
-﻿using Assets.Scripts.Core;
-using Assets.Scripts.ScriptableObjects;
+﻿using Assets.Scripts.ScriptableObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 [System.Serializable]
 public class Deck
@@ -23,7 +23,15 @@ public class Deck
     /// </summary>
     public void Shuffle()
     {
-        drawPile = drawPile.OrderBy(x => Guid.NewGuid()).ToList();
+        int count = drawPile.Count;
+        while (count > 1)
+        {
+            int swapIndex = UnityEngine.Random.Range(0, count);
+            count--;
+            var value = drawPile[swapIndex];
+            drawPile[swapIndex] = drawPile[count];
+            drawPile[count] = value;
+        }
     }
 
     /// <summary>
@@ -59,5 +67,6 @@ public class Deck
         drawPile = new List<CardBase>(drawPile);
         drawPile.AddRange(discardPile);
         discardPile.Clear();
+        Shuffle();
     }
 }
