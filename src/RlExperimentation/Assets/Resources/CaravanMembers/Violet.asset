@@ -40,3 +40,5 @@ MonoBehaviour:
     Target: 106
     StatusId: 0
     Condition: []
+  animations: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 1d1e7789988b544438b227a52b638a67, type: 3}

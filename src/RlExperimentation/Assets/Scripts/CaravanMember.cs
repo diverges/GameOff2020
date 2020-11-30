@@ -6,13 +6,14 @@ using UnityEngine.UI;
 
 namespace Assets.Scripts
 {
-    public class CaravanMember : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+    public class CaravanMember : MonoBehaviour
     {
         private const string healthFormat = "HP: {0}/{1}";
         [HideInInspector] public ActorBase actor;
         public Text actorName;
         public Text caravanClass;
         public Text health;
+        public Image image;
 
         public GameObject tooltipPrefab;
         [HideInInspector] private GameObject tooltipInstance;
@@ -49,22 +50,27 @@ namespace Assets.Scripts
             actorName.text = actor.Name;
             caravanClass.text = actor.Class.ToString();
             health.text = string.Format(healthFormat, actor.CurrentHealth, actor.MaxHealth);
+
+            if(actor.sprite != null)
+            {
+                this.image.sprite = actor.sprite;
+            }
         }
 
-        public void OnPointerEnter(PointerEventData eventData)
+        public void OnMouseEnter()
         {
             if (actor == null)
             {
                 return;
             }
 
-            var worldPosition = eventData.pointerCurrentRaycast.worldPosition;
+            var worldPosition = Input.mousePosition;
             tooltipInstance = Instantiate(tooltipPrefab, new Vector3(worldPosition.x, worldPosition.y, 0), Quaternion.identity, this.transform);
             var tooltip = tooltipInstance.GetComponent<Tooltip>();
             tooltip.Create(actor.GetTooltipDescription());
         }
 
-        public void OnPointerExit(PointerEventData eventData)
+        public void OnMouseExit()
         {
             if (tooltipInstance == null)
             {

@@ -27,14 +27,19 @@ MonoBehaviour:
   - Type: 1
     Amount: 2
     Target: 0
+    StatusId: 0
     Condition: []
   OnExit:
   - Type: 1
     Amount: 2
     Target: 0
+    StatusId: 0
     Condition: []
   OnPrepare:
   - Type: 1
     Amount: 1
     Target: 0
+    StatusId: 0
     Condition: []
+  animations: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 7a0fc562ac6c70345987070ba6bf6365, type: 3}
