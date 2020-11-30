@@ -16,7 +16,7 @@ MonoBehaviour:
   Description: The slow and obvious path taken by the caravan makes it an irresistible
     target to raiders. Biding their time, they wait for the opportune chance to strike.
   Class: 0
-  MaxHealth: 13
+  MaxHealth: 21
   Backpack: []
   OnEnter:
   - Type: 1

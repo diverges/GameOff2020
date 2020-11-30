@@ -127,6 +127,11 @@ namespace Assets.Scripts
                 case EffectTarget.CaravanLowestHealth:
                     yield return caravan.GetLowestHealthCaravanMember();
                     break;
+                case EffectTarget.CaravanAndActive:
+                    foreach (var item in caravan.caravan)
+                        yield return item;
+                    yield return caravan.activeCaravanActor;
+                    break;
                 default:
                     Debug.LogError($"Target not implemented: {target.ToString()}");
                     yield break;

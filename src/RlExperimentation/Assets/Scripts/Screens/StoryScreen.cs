@@ -5,7 +5,6 @@ namespace Assets.Scripts.Screens
 {
     public class StoryScreen : MonoBehaviour
     {
-
         public Text title;
         public Text body;
         public Text submitText;

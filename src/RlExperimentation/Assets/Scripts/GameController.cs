@@ -186,7 +186,7 @@ namespace Assets.Scripts
                 case TurnState.End:
                     break;
             }
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(0.3f);
         }
 
         private void ProcessEffectsAndLog(List<Effect> effects, ActorBase source)

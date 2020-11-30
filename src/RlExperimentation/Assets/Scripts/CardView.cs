@@ -3,9 +3,7 @@ using Assets.Scripts.Core;
 using Assets.Scripts.ScriptableObjects;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 public class CardView : MonoBehaviour
 {
@@ -13,6 +11,7 @@ public class CardView : MonoBehaviour
     [HideInInspector] public HandManager controller;
     public Text headerText;
     public Text descriptionText;
+    public UnityEngine.UI.Image cardImage;
 
     public void SetCardBase(CardBase card)
     {
@@ -30,6 +29,11 @@ public class CardView : MonoBehaviour
         else
         {
             descriptionText.text = card.Description;
+        }
+
+        if(card.Sprite != null)
+        {
+            cardImage.sprite = card.Sprite;
         }
     }
 

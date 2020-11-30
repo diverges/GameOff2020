@@ -15,7 +15,7 @@ MonoBehaviour:
   Title: A moment of respite
   Description: "Arriving at a small fishing town the caravan finds locals willing
     to help out cause.\r"
-  Next: {fileID: 0}
+  Next: {fileID: 11400000, guid: af58fbff7e2ae8449bb9ab5083f52e40, type: 2}
   member:
   - {fileID: 11400000, guid: 87d0df949ae06324fa7fa14f3d45a126, type: 2}
   - {fileID: 11400000, guid: 94fedeadf761e354dbd077e422315e90, type: 2}

@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2b21bd215703174da443ef8ea19639e, type: 3}
+  m_Name: WeakScavanger
+  m_EditorClassIdentifier: 
+  Name: Weak Scavenger
+  Description: Starving hounds roam the plains, hunger clouding their sense of danger.
+  Class: 0
+  MaxHealth: 13
+  Backpack: []
+  OnEnter:
+  - Type: 5
+    Amount: 5
+    Target: 0
+    StatusId: 100
+    Condition: []
+  OnExit: []
+  OnPrepare: []
+  animations: {fileID: 0}

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Bandage
   m_EditorClassIdentifier: 
   Name: Bandage
+  Sprite: {fileID: 21300000, guid: a888431967d2e944885daae8fa52e84d, type: 3}
   Description: 
   Effects:
   - Type: 2

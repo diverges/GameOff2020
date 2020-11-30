@@ -1,6 +1,4 @@
-﻿using Assets.Scripts.Core;
-using Assets.Scripts.ScriptableObjects;
-using System;
+﻿using Assets.Scripts.ScriptableObjects;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -29,6 +27,7 @@ namespace Assets.Scripts
         /// <param name="actors"></param>
         public void InitializeCaravan(List<ActorBase> actors)
         {
+            caravan.Clear();
             // Create Caravan
             for (var index = 0; index < orderedCaravanSpawns.Length; ++index)
             {
@@ -43,6 +42,13 @@ namespace Assets.Scripts
                 orderedCaravanSpawns[index].SetActive(true);
             }
             activeCaravanActor = null;
+        }
+
+        public bool IsFull() => this.caravan.Count() == 4;
+
+        public void AddMember(ActorBase actor)
+        {
+            this.InitializeCaravan(new List<ActorBase>(caravan) { actor });
         }
 
         public void OnPlayerTurnStart()

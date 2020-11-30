@@ -35,6 +35,12 @@ namespace Assets.Scripts.Core
             {
                 case "Raider":
                     return new Raider();
+                case "Weak Scavenger":
+                    return new WeakScavenger();
+                case "Raider Scout":
+                    return new RaiderScout();
+                case "Scavenger":
+                    return new Scavenger();
                 default:
                     throw new MissingComponentException();
             }

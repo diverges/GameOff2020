@@ -47,6 +47,8 @@ namespace Assets.Scripts.ScriptableObjects
 
         public ActorAnimations animations;
 
+        public Sprite sprite;
+
         #region Status
         private readonly Dictionary<string, StatusBase> statusCollection = new Dictionary<string, StatusBase>();
 

@@ -54,9 +54,28 @@ namespace Assets.Scripts
             this.HandleCurrentScreenChange();
         }
 
+        private ActorBase choice;
+
         public void OnRewardPick(ActorBase target)
         {
-            // Reward screen choice.
+            if(caravanManager.IsFull())
+            {
+                choice = target;
+                var obj = Instantiate(GameAssets.Instance.pfSwapScreen, this.transform);
+                var screen = obj.GetComponentsInChildren<Screens.RewardChoice>();
+                int index = 0;
+                foreach (var member in caravanManager.caravan)
+                {
+                    screen[index].Set(obj, this, member);
+                    index++;
+                }
+            }
+            else
+            {
+                caravanManager.AddMember(target);
+                this.curScreen = curScreen.Next;
+                this.HandleCurrentScreenChange();
+            }
         }
 
         public void OnReplacePick(ActorBase target)
@@ -100,6 +119,16 @@ namespace Assets.Scripts
                     }
                     break;
                 case ScriptableObjects.RewardScreen val:
+                    {
+                        var obj = Instantiate(GameAssets.Instance.pfRewardScreen, this.transform);
+                        var screen = obj.GetComponentsInChildren<Screens.RewardChoice>();
+                        int index = 0;
+                        foreach(var member in val.member)
+                        {
+                            screen[index].Set(obj, this, member);
+                            index++;
+                        }
+                    }
                     break;
             }
         }

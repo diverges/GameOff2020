@@ -9,6 +9,7 @@ namespace Assets.Scripts.ScriptableObjects
     public class CardBase : ScriptableObject
     {
         public string Name;
+        public Sprite Sprite;
         [TextArea]
         public string Description;
         public List<Effect> Effects;
