@@ -9,7 +9,10 @@ namespace Assets.Scripts.Enemy
     {
         private int intent = Random.Range(0, 4);
 
-        public override string ActorName => "Raider Scout";
+        public RaiderScout()
+        {
+            this.ActorName = "Raider Scout";
+        }
 
         public override void Think()
         {

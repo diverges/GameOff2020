@@ -13,14 +13,18 @@ MonoBehaviour:
   m_Name: Pistol
   m_EditorClassIdentifier: 
   Name: Pistol
+  Sprite: {fileID: 21300000, guid: d9f7154b7b031f94b902cf135a5c45e5, type: 3}
+  Description: 
   Effects:
   - Type: 1
     Amount: 3
     Target: 0
+    StatusId: 0
     Condition: []
   - Type: 1
     Amount: 2
     Target: 0
+    StatusId: 0
     Condition:
     - Condition: 1
       Value: Pistoleer

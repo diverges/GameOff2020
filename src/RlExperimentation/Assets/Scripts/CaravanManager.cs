@@ -104,6 +104,7 @@ namespace Assets.Scripts
                 var member = orderedCaravanSpawns[index].GetComponent<CaravanMember>();
                 if (member.actor != null && member.actor.CurrentHealth <= 0)
                 {
+                    caravan.Remove(member.actor);
                     member.SetCaravanMember(null);
                     orderedCaravanSpawns[index].SetActive(false);
                     return;
@@ -115,6 +116,39 @@ namespace Assets.Scripts
                 activeMember.SetCaravanMember(null);
                 activeCaravanActor = null;
             }
+        }
+
+        /// <summary>
+        /// Remove dead caravan members
+        /// </summary>
+        public void ClearAllStatus()
+        {
+            foreach(var actor in caravan)
+            {
+                if(actor != null)
+                {
+                    actor.ClearStatus();
+                }
+            }
+            if (activeCaravanActor != null)
+            {
+                activeCaravanActor.ClearStatus();
+            }
+        }
+
+        /// <summary>
+        /// Remove dead caravan members
+        /// </summary>
+        public void RetreatActive()
+        {
+            if (activeCaravanActor != null)
+            {
+                caravan.Add(activeCaravanActor);
+                activeCaravanActor = null;
+                var activeMember = activeCaravanSpawn.GetComponent<CaravanMember>();
+                activeMember.SetCaravanMember(null);
+            }
+            this.InitializeCaravan(new List<ActorBase>(caravan));
         }
 
         public ActorBase GetFirstAvailablePlayerTarget()

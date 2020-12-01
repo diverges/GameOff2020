@@ -17,6 +17,7 @@ namespace Assets.Scripts
 
         public GameObject tooltipPrefab;
         [HideInInspector] public GameObject tooltipInstance;
+        public Image image;
 
         void Update()
         {
@@ -29,6 +30,8 @@ namespace Assets.Scripts
                     "\r\n",
                     actor.Intent.Select(effect => effect.ToString()));
                 GetComponentInChildren<StatusView>().actor = this.actor.Instance;
+                image.sprite = actor.Instance.sprite;
+                image.color = actor.Instance.color;
             }
 
             if(tooltipInstance != null)
@@ -41,7 +44,7 @@ namespace Assets.Scripts
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            if (actor == null && actor.Instance)
+            if (actor == null || actor.Instance == null)
             {
                 return;
             }

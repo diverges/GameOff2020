@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6aea058a5f3a3d848b7022776a0b99cd, type: 3}
   m_Name: 01_Scouts
   m_EditorClassIdentifier: 
-  Title: 1
-  Description: 2
+  Title: 'Scouts! '
+  Description: "Too slow. Scouts! End them\u2026 before they alert their generals."
   Next: {fileID: 11400000, guid: c57b627e585ce0648a7e7e76839e3a06, type: 2}
   EnemyPack:
   - {fileID: 11400000, guid: aa5bf3d9667dce74999453cb2de4b91a, type: 2}

@@ -17,18 +17,25 @@ namespace Assets.Scripts
         public CaravanManager caravanManager;
         public GameController gameController;
 
+        // Audio
+        public AudioClip ambientAudio;
+        public AudioClip encounterAudio;
+        public AudioSource audioSource;
+
         public void Start()
         {
             caravanManager.InitializeCaravan(startingCaravan
                .Select(item => Instantiate(item))
                .ToList());
             this.HandleCurrentScreenChange();
+            PlayAmbient();
         }
 
         public void OnStoryScreenContinue()
         {
             if (curScreen is EncounterScreen)
             {
+                PlayEncounter();
                 var screen = curScreen as EncounterScreen;
                 this.gameController.StartEncounter(screen.EnemyPack
                     .Select(item => EnemyBase.Create(item.Name))
@@ -51,6 +58,7 @@ namespace Assets.Scripts
             {
                 this.curScreen = gameOverScreen;
             }
+            this.PlayAmbient();
             this.HandleCurrentScreenChange();
         }
 
@@ -58,24 +66,9 @@ namespace Assets.Scripts
 
         public void OnRewardPick(ActorBase target)
         {
-            if(caravanManager.IsFull())
-            {
-                choice = target;
-                var obj = Instantiate(GameAssets.Instance.pfSwapScreen, this.transform);
-                var screen = obj.GetComponentsInChildren<Screens.RewardChoice>();
-                int index = 0;
-                foreach (var member in caravanManager.caravan)
-                {
-                    screen[index].Set(obj, this, member);
-                    index++;
-                }
-            }
-            else
-            {
-                caravanManager.AddMember(target);
-                this.curScreen = curScreen.Next;
-                this.HandleCurrentScreenChange();
-            }
+            caravanManager.AddMember(target);
+            this.curScreen = curScreen.Next;
+            this.HandleCurrentScreenChange();
         }
 
         public void OnReplacePick(ActorBase target)
@@ -108,6 +101,7 @@ namespace Assets.Scripts
                         var screen = obj.GetComponent<Screens.StoryScreen>();
                         screen.Set(val.Title, val.Description, "Continue");
                         screen.scenario = this;
+                        PlayAmbient();
                     }
                     break;
                 case ScriptableObjects.EncounterScreen val:
@@ -128,8 +122,29 @@ namespace Assets.Scripts
                             screen[index].Set(obj, this, member);
                             index++;
                         }
+                        PlayAmbient();
                     }
                     break;
+            }
+        }
+
+        void PlayAmbient()
+        {
+            if (audioSource.clip != ambientAudio)
+            {
+                audioSource.clip = ambientAudio;
+                audioSource.loop = true;
+                audioSource.Play();
+            }
+        }
+
+        void PlayEncounter()
+        {
+            if (audioSource.clip != encounterAudio)
+            {
+                audioSource.clip = encounterAudio;
+                audioSource.loop = true;
+                audioSource.Play();
             }
         }
     }

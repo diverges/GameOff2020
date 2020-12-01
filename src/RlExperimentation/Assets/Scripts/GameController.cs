@@ -131,6 +131,8 @@ namespace Assets.Scripts
 
             if(turnState == TurnState.End)
             {
+                caravanManager.RetreatActive();
+                caravanManager.ClearAllStatus();
                 caravanManager.CleanupCaravan();
                 handManager.DiscardPlayerHand();
                 scenarioManager.OnEndEncounter();
@@ -159,7 +161,6 @@ namespace Assets.Scripts
                         effect => enemy.Instance.OnEffectSource(effect)).ToList(),
                         enemy.Instance);
                     enemy.Think();
-                    caravanManager.CleanupCaravan();
                     turnState = TurnState.PlayerDraw;
                     break;
                 case TurnState.PlayerDraw:
@@ -179,7 +180,6 @@ namespace Assets.Scripts
                 case TurnState.PlayerAct:
                     break;
                 case TurnState.PlayerEnd:
-                    caravanManager.CleanupCaravan();
                     handManager.DiscardPlayerHand();
                     turnState = TurnState.EnemyPrepare;
                     break;
@@ -187,6 +187,7 @@ namespace Assets.Scripts
                     break;
             }
             yield return new WaitForSeconds(0.3f);
+            caravanManager.CleanupCaravan();
         }
 
         private void ProcessEffectsAndLog(List<Effect> effects, ActorBase source)

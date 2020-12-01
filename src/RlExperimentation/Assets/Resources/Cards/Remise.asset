@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Remise
   m_EditorClassIdentifier: 
   Name: Remise
+  Sprite: {fileID: 0}
   Description: 'Deal 1 damage twice.
 
     <b>Synergy</b> Duelist, gain <b>Empower</b>.'
@@ -29,7 +30,7 @@ MonoBehaviour:
     Condition: []
   - Type: 4
     Amount: 1
-    Target: 106
+    Target: 100
     StatusId: 101
     Condition:
     - Condition: 1

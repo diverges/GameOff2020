@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Cyril
   m_EditorClassIdentifier: 
   Name: Cyril
-  Description: 
+  Description: Cyril was getting an MBA before the war. He often wonders if post-apolyptic
+    mutants will honor his degree. Common sense was not on the cirriculum.
   Class: 4
   MaxHealth: 24
   Backpack:
@@ -40,3 +41,5 @@ MonoBehaviour:
     Target: 106
     StatusId: 101
     Condition: []
+  animations: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 7a0fc562ac6c70345987070ba6bf6365, type: 3}

@@ -13,21 +13,17 @@ MonoBehaviour:
   m_Name: Ada
   m_EditorClassIdentifier: 
   Name: Ada
-  Description: 'Lorem ipsum dolor sit amet,
-
-    consectetur adipiscing elit,
-
-    sed
-    do eiusmod tempor incididunt
-
-    ut labore et dolore magna aliqua.'
+  Description: Ada always wanted to be a baker but learned medical practice caring
+    for her childhood pets. If she makes it out alive, she'll open her own petite
+    boulangerie.
   Class: 1
-  MaxHealth: 20
+  MaxHealth: 24
   Backpack:
   - {fileID: 11400000, guid: a5c8d837fab1d7a42a8bf9ba1c40a144, type: 2}
   - {fileID: 11400000, guid: a5c8d837fab1d7a42a8bf9ba1c40a144, type: 2}
   - {fileID: 11400000, guid: a5c8d837fab1d7a42a8bf9ba1c40a144, type: 2}
   - {fileID: 11400000, guid: fe2d984c5c597534db7dab0c80cb9aed, type: 2}
+  - {fileID: 11400000, guid: 14078271dac9d43458ae1bd952720e14, type: 2}
   OnEnter:
   - Type: 2
     Amount: 2
@@ -48,3 +44,4 @@ MonoBehaviour:
     Condition: []
   animations: {fileID: 0}
   sprite: {fileID: 21300000, guid: d347a5d9e89b7004a8bbd4ef0033c88d, type: 3}
+  color: {r: 0, g: 0, b: 0, a: 1}

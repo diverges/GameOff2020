@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7608bcac0cabb264696b24aaf8017637, type: 3}
+  m_Name: 05_MountainsEdge
+  m_EditorClassIdentifier: 
+  Title: Mountain's Edge
+  Description: "At the edge of the desert, before the mountains a small town provides
+    housing of travelers. Some willing to join our cause.\r"
+  Next: {fileID: 11400000, guid: cecf5c4f3b05da7428fe6013be4ca9bc, type: 2}

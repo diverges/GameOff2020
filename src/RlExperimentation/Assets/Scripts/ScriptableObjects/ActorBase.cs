@@ -49,6 +49,9 @@ namespace Assets.Scripts.ScriptableObjects
 
         public Sprite sprite;
 
+        public Color color = new Color(0,0,0);
+
+
         #region Status
         private readonly Dictionary<string, StatusBase> statusCollection = new Dictionary<string, StatusBase>();
 

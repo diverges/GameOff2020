@@ -9,16 +9,11 @@ namespace Assets.Scripts.Core
     public abstract class EnemyBase
     {
         private static Dictionary<string, ActorBase> actors = Resources.LoadAll<ActorBase>("Enemies").ToDictionary(item => item.Name, item => item);
-        private ActorBase instance;
-
-        public EnemyBase()
-        {
-            this.instance = Object.Instantiate(EnemyBase.actors[ActorName]);
-        }
+        protected ActorBase instance;
 
         public ActorBase Instance { get => instance; }
 
-        public abstract string ActorName { get; }
+        public string ActorName { get; set; }
 
         public string IntentName { get; protected set; }
 
@@ -31,19 +26,34 @@ namespace Assets.Scripts.Core
 
         public static EnemyBase Create(string actorName)
         {
+            EnemyBase obj;
             switch(actorName)
             {
+                case "Legion Armor":
+                    obj = new Raider();
+                    obj.ActorName = "Diseased Scavenger";
+                    break;
                 case "Raider":
-                    return new Raider();
+                    obj = new Raider();
+                    break;
+                case "Diseased Scavenger":
+                    obj = new Scavenger();
+                    obj.ActorName = "Diseased Scavenger";
+                    break;
                 case "Weak Scavenger":
-                    return new WeakScavenger();
+                    obj = new WeakScavenger();
+                    break;
                 case "Raider Scout":
-                    return new RaiderScout();
+                    obj =  new RaiderScout();
+                    break;
                 case "Scavenger":
-                    return new Scavenger();
+                    obj = new Scavenger();
+                    break;
                 default:
                     throw new MissingComponentException();
             }
+            obj.instance = Object.Instantiate(EnemyBase.actors[obj.ActorName]);
+            return obj;
         }
     }
 }

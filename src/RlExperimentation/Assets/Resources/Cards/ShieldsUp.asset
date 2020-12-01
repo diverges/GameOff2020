@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: ShieldsUp
   m_EditorClassIdentifier: 
   Name: Shield's Up
+  Sprite: {fileID: 0}
   Description: 
   Effects:
   - Type: 5
@@ -20,4 +21,11 @@ MonoBehaviour:
     Target: 100
     StatusId: 200
     Condition: []
+  - Type: 1
+    Amount: 3
+    Target: 100
+    StatusId: 200
+    Condition:
+    - Condition: 1
+      Value: Mercenary
   instance: {fileID: 0}

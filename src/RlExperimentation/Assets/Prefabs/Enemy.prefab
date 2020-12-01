@@ -533,6 +533,7 @@ MonoBehaviour:
   IntentDescription: {fileID: 315936682}
   tooltipPrefab: {fileID: 768341253068107928, guid: 92827998de03af44a894e5cbc4e3ffaf, type: 3}
   tooltipInstance: {fileID: 0}
+  image: {fileID: 6781821752231350648}
 --- !u!61 &355663041933098588
 BoxCollider2D:
   m_ObjectHideFlags: 0

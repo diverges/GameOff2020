@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: 01_Forward
   m_EditorClassIdentifier: 
   Title: Forward
-  Description: "Quickly the caravan continues its journey, not giving whoever might
-    have heard the previous commotion time to investigate. \r"
+  Description: "Move quickly. Before the desert\u2019s many wandering eyes spot your
+    perilous march on the capital.\r"
   Next: {fileID: 11400000, guid: ff78c5620618010448346e338b0a377e, type: 2}

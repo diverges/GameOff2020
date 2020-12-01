@@ -8,7 +8,11 @@ namespace Assets.Scripts.Enemy
     public class Scavenger : EnemyBase
     {
         private int intent = Random.Range(0, 3);
-        public override string ActorName => "Scavenger";
+
+        public Scavenger()
+        {
+            this.ActorName = "Scavenger";
+        }
 
         public override void Think()
         {

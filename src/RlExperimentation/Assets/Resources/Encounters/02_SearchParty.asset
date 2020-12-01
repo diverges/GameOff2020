@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6aea058a5f3a3d848b7022776a0b99cd, type: 3}
   m_Name: 02_SearchParty
   m_EditorClassIdentifier: 
-  Title: 3
-  Description: 4
-  Next: {fileID: 11400000, guid: e42c2e5200d6b3846b5dc3705c378b4d, type: 2}
+  Title: Search Party
+  Description: "Hours after finishing off the scouts a search party is caught by
+    the caravan.\r"
+  Next: {fileID: 11400000, guid: fdeee62f097d09c4499e7f4218214c86, type: 2}
   EnemyPack:
   - {fileID: 11400000, guid: ee9905cd2fac9174c9ddc914d7a9c09c, type: 2}
   - {fileID: 11400000, guid: 6bacc0764b0ca1b44ac0500e25a3284d, type: 2}

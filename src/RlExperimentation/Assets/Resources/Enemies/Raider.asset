@@ -27,3 +27,5 @@ MonoBehaviour:
   OnExit: []
   OnPrepare: []
   animations: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 0270f381a8767d6468384145c4f2b06a, type: 3}
+  color: {r: 0.8679245, g: 0.7817757, b: 0.63456744, a: 1}

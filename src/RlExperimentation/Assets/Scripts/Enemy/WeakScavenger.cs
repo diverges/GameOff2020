@@ -7,7 +7,10 @@ namespace Assets.Scripts.Enemy
 {
     public class WeakScavenger : EnemyBase
     {
-        public override string ActorName => "Weak Scavenger";
+        public WeakScavenger()
+        {
+            this.ActorName = "Weak Scavenger";
+        }
 
         public override void Think()
         {

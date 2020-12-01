@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2b21bd215703174da443ef8ea19639e, type: 3}
+  m_Name: Lyra
+  m_EditorClassIdentifier: 
+  Name: Lyra
+  Description: Lyra's left hand is no good at throwing knives. Neither is her right.
+  Class: 3
+  MaxHealth: 20
+  Backpack:
+  - {fileID: 11400000, guid: 6c948b045376a1647a14408b2cdb591d, type: 2}
+  - {fileID: 11400000, guid: 9fb22f6e697a7b6419d1a8f6f11f994f, type: 2}
+  - {fileID: 11400000, guid: 9fb22f6e697a7b6419d1a8f6f11f994f, type: 2}
+  - {fileID: 11400000, guid: 313ddfe395d3cf94fbb89ec4908f7f20, type: 2}
+  - {fileID: 11400000, guid: 313ddfe395d3cf94fbb89ec4908f7f20, type: 2}
+  OnEnter:
+  - Type: 7
+    Amount: 1
+    Target: 106
+    StatusId: 0
+    Condition: []
+  OnExit:
+  - Type: 4
+    Amount: 1
+    Target: 106
+    StatusId: 101
+    Condition: []
+  OnPrepare:
+  - Type: 6
+    Amount: 1
+    Target: 106
+    StatusId: 0
+    Condition: []
+  animations: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 1d1e7789988b544438b227a52b638a67, type: 3}

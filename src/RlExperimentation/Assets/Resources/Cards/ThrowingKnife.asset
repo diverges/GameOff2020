@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: ThrowingKnife
   m_EditorClassIdentifier: 
   Name: Dagger
+  Sprite: {fileID: 0}
+  Description: 
   Effects:
   - Type: 4
     Amount: 1

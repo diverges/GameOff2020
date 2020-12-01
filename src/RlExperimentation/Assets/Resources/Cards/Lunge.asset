@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Lunge
   m_EditorClassIdentifier: 
   Name: Lunge
+  Sprite: {fileID: 0}
   Description: 
   Effects:
   - Type: 1
@@ -27,7 +28,7 @@ MonoBehaviour:
     Condition: []
   - Type: 4
     Amount: 1
-    Target: 106
+    Target: 100
     StatusId: 101
     Condition:
     - Condition: 1

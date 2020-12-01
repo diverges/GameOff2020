@@ -10,7 +10,10 @@ namespace Assets.Scripts.Enemy
         private bool takeAimBuf = false;
         private int intent = Random.Range(0, 10);
 
-        public override string ActorName => "Raider";
+        public Raider()
+        {
+            this.ActorName = "Raider";
+        }
 
         public override void Think()
         {

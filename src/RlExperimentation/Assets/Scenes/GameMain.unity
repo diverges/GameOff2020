@@ -2579,11 +2579,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 85041a6474652fa458375c2fde24ea35, type: 3}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
   m_Volume: 0.695
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -5345,13 +5345,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 958d6ebe1f906ab49a8a31746e58a309, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  curScreen: {fileID: 11400000, guid: 35a1f10526e5e0048a3b27124fa213f3, type: 2}
+  curScreen: {fileID: 11400000, guid: 0b5a1153d813d2d409ef19c410699ee5, type: 2}
   gameOverScreen: {fileID: 11400000, guid: e42c2e5200d6b3846b5dc3705c378b4d, type: 2}
   startingCaravan:
   - {fileID: 11400000, guid: f05caa05c6aa8904f95492e137dd6484, type: 2}
   - {fileID: 11400000, guid: 87d0df949ae06324fa7fa14f3d45a126, type: 2}
   caravanManager: {fileID: 1329152082}
   gameController: {fileID: 1585183917}
+  ambientAudio: {fileID: 8300000, guid: bc0089bdbd417544486b2d684eadb768, type: 3}
+  encounterAudio: {fileID: 8300000, guid: 85041a6474652fa458375c2fde24ea35, type: 3}
+  audioSource: {fileID: 519420033}
 --- !u!4 &1384162039
 Transform:
   m_ObjectHideFlags: 0
@@ -5527,11 +5530,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 543073188198817648, guid: 2e7038ca0b36953419a893be1af728f1, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -289
+      value: -350
       objectReference: {fileID: 0}
     - target: {fileID: 543073188198817648, guid: 2e7038ca0b36953419a893be1af728f1, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 65
+      value: 81.25
       objectReference: {fileID: 0}
     - target: {fileID: 913952482787207389, guid: 2e7038ca0b36953419a893be1af728f1, type: 3}
       propertyPath: m_Name
@@ -6165,6 +6168,10 @@ PrefabInstance:
     - target: {fileID: 5524602713748022646, guid: d9d940a9247c06845a90d399417b81c7, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5926189889238815996, guid: d9d940a9247c06845a90d399417b81c7, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -280
       objectReference: {fileID: 0}
     - target: {fileID: 6126068099335457421, guid: d9d940a9247c06845a90d399417b81c7, type: 3}
       propertyPath: m_LocalPosition.x

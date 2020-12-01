@@ -13,15 +13,16 @@ MonoBehaviour:
   m_Name: Violet
   m_EditorClassIdentifier: 
   Name: Violet
-  Description: Test
+  Description: Violet was a fencer most of her life. But the only foil she knows
+    her way around is the aluminum foil wrapped around her lunch.
   Class: 3
   MaxHealth: 20
   Backpack:
   - {fileID: 11400000, guid: 6c948b045376a1647a14408b2cdb591d, type: 2}
-  - {fileID: 11400000, guid: 9fb22f6e697a7b6419d1a8f6f11f994f, type: 2}
-  - {fileID: 11400000, guid: 9fb22f6e697a7b6419d1a8f6f11f994f, type: 2}
-  - {fileID: 11400000, guid: 313ddfe395d3cf94fbb89ec4908f7f20, type: 2}
-  - {fileID: 11400000, guid: 313ddfe395d3cf94fbb89ec4908f7f20, type: 2}
+  - {fileID: 11400000, guid: 14035045b7aeba84da76cd917f66345c, type: 2}
+  - {fileID: 11400000, guid: 14035045b7aeba84da76cd917f66345c, type: 2}
+  - {fileID: 11400000, guid: f371f36d70b315c4bbb101993f8a92db, type: 2}
+  - {fileID: 11400000, guid: f371f36d70b315c4bbb101993f8a92db, type: 2}
   OnEnter:
   - Type: 7
     Amount: 1
@@ -42,3 +43,4 @@ MonoBehaviour:
     Condition: []
   animations: {fileID: 0}
   sprite: {fileID: 21300000, guid: 1d1e7789988b544438b227a52b638a67, type: 3}
+  color: {r: 0, g: 0, b: 0, a: 1}

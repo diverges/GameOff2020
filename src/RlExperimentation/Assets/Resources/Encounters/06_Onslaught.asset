@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6aea058a5f3a3d848b7022776a0b99cd, type: 3}
+  m_Name: 06_Onslaught
+  m_EditorClassIdentifier: 
+  Title: Onslaught!
+  Description: "A large squadron of legion soldiers attack the caravan. \r"
+  Next: {fileID: 11400000, guid: 9e0e5ef20796b4b49824f51e3d0a7fe0, type: 2}
+  EnemyPack:
+  - {fileID: 11400000, guid: bd75c5f47f3c75440b35b701b4f02ef5, type: 2}
+  - {fileID: 11400000, guid: bd75c5f47f3c75440b35b701b4f02ef5, type: 2}
+  - {fileID: 11400000, guid: ee9905cd2fac9174c9ddc914d7a9c09c, type: 2}
+  - {fileID: 11400000, guid: bd75c5f47f3c75440b35b701b4f02ef5, type: 2}
